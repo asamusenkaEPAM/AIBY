@@ -81,7 +81,7 @@ const quizQuestions = [
   {
     topic: "Контроль",
     focus: "Human-in-the-loop",
-    question: "Где human-in-the-loop особенно важен?",
+    question: "Где особенно важно участие человека в принятии решения (human-in-the-loop)?",
     answers: [
       "После каждого автодополнения и вызова инструмента, даже если действие полностью обратимо и безопасно",
       "Только при обучении модели: после релиза ответственность за решения уже переходит к самой системе",
@@ -128,7 +128,7 @@ const quizQuestions = [
       "Перечислить модели, фреймворки и сертификаты: чем длиннее список, тем убедительнее уровень AI-зрелости"
     ],
     correct: 1,
-    explanation: "Интервьюеру важен управляемый процесс: ваше мышление, выбор, проверка и способность заметить ошибку инструмента.",
+    explanation: "На собеседовании важно показать, как вы рассуждаете, выбираете инструменты, проверяете результат и замечаете ошибки.",
   }
 ];
 
@@ -148,7 +148,7 @@ const sources = [
   { category: "interviews", publisher: "Aline Lerner / interviewing.io", title: "How AI is changing technical interviews", description: "Исследование того, как AI меняет алгоритмические вопросы, поведение интервьюеров и формат технических собеседований.", note: "Источник тезиса о FAANG", url: "https://www.linkedin.com/posts/alinelerner_is-ai-changing-technical-interviews-are-activity-7374535779009617921-0l6t" },
   { category: "interviews", publisher: "Axios", title: "Companies embrace in-person interviews to dodge the chatbots", description: "Google, Cisco и McKinsey вернули очные этапы; материал связывает это с AI-подсказками и проверкой личности.", note: "Добавлено при фактчеке", url: "https://www.axios.com/2025/08/12/in-person-job-interview-artificial-intelligence" },
   { category: "interviews", publisher: "TechCrunch", title: "Columbia student suspended over interview cheating tool", description: "История Роя Ли, приложения Interview Coder и появления стартапа Cluely.", note: "Источник истории Cluely", url: "https://techcrunch.com/2025/04/21/columbia-student-suspended-over-interview-cheating-tool-raises-5-3m-to-cheat-on-everything/" },
-  { category: "interviews", publisher: "Checkr", title: "The Hiring Hoax: What 3,000 Managers Revealed", description: "35% опрошенных менеджеров сообщили, что в виртуальном интервью участвовал не тот человек, который был указан как кандидат.", note: "Источник про подмену кандидата", url: "https://checkr.com/resources/articles/hiring-hoax-manager-survey-2025" },
+  { category: "interviews", publisher: "Checkr", title: "The Hiring Hoax: What 3,000 Managers Revealed", description: "35% опрошенных менеджеров сообщили, что в виртуальном интервью участвовал не тот человек, который был указан как кандидат.", note: "Источник сведений о подмене кандидата", url: "https://checkr.com/resources/articles/hiring-hoax-manager-survey-2025" },
   { category: "tools", publisher: "OpenAI", title: "Codex", description: "Официальная документация coding-агента: работа с кодовой базой, задачами разработки и инструментами.", note: "Упомянуто в статье", url: "https://learn.chatgpt.com/docs/cloud" },
   { category: "tools", publisher: "Anthropic", title: "Claude Code overview", description: "Официальный обзор агентного coding-инструмента Claude Code.", note: "Упомянуто в статье", url: "https://docs.anthropic.com/en/docs/claude-code/overview" },
   { category: "tools", publisher: "Model Context Protocol", title: "Introduction to MCP", description: "Официальное введение в открытый протокол подключения AI-приложений к инструментам и данным.", note: "Поясняет термин из статьи", url: "https://modelcontextprotocol.io/docs/getting-started/intro" },
