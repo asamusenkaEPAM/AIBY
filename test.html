@@ -3,40 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Тест по AI — AI BY</title>
+  <meta name="description" content="10 вопросов для самопроверки навыков работы с AI-агентами и современными AI-системами.">
+  <title>Тест на AI-зрелость — Поиск проекта в эпоху AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="quiz-page">
   <header class="nav shell">
-    <a class="brand" href="index.html"><span class="brand-mark">AI</span><span>BY Community</span></a>
-    <a class="nav-link" href="index.html">← На главную</a>
+    <a class="brand" href="index.html"><span class="brand-mark">AI</span><span>Bench / 2026</span></a>
+    <nav class="nav-links" aria-label="Основная навигация"><a class="active" href="test.html">Тест</a><a href="sources.html">Источники</a></nav>
   </header>
-
   <main class="quiz-shell">
     <section class="quiz-card" id="quiz-card">
       <div id="quiz-view">
-        <div class="quiz-meta"><span id="counter">Вопрос 1 из 7</span><span id="score-label">0 баллов</span></div>
-        <div class="progress" aria-label="Прогресс теста"><div id="progress-bar"></div></div>
+        <div class="quiz-meta"><span id="counter">Вопрос 1 из 10</span><span id="score-label">0 баллов</span></div>
+        <div class="progress" role="progressbar" aria-label="Прогресс теста" aria-valuemin="0" aria-valuemax="10" aria-valuenow="1"><div id="progress-bar"></div></div>
         <p class="quiz-topic" id="topic"></p>
         <h1 id="question"></h1>
-        <div class="answers" id="answers"></div>
-        <div class="explanation" id="explanation" hidden></div>
-        <button class="button primary next-button" id="next" disabled>Далее →</button>
+        <div class="answers" id="answers" aria-live="polite"></div>
+        <div class="explanation" id="explanation" hidden aria-live="polite"></div>
+        <div class="quiz-controls"><a class="quiet-link" href="index.html">Выйти</a><button class="button primary next-button" id="next" disabled>Далее →</button></div>
       </div>
       <div class="result" id="result-view" hidden>
-        <div class="result-ring" id="result-ring"><strong id="result-score">0/7</strong></div>
-        <p class="eyebrow">Тест завершён</p>
-        <h1 id="result-title">Хороший результат!</h1>
+        <div class="result-scoreline"><div class="result-ring" id="result-ring"><strong id="result-score">0/10</strong></div><span id="result-level">Уровень</span></div>
+        <p class="eyebrow">Самопроверка завершена</p>
+        <h1 id="result-title">Ваша точка старта</h1>
         <p id="result-copy"></p>
-        <div class="result-actions">
-          <button class="button primary" id="restart">Пройти ещё раз</button>
-          <a class="button secondary" href="index.html#resources">К материалам</a>
-        </div>
+        <div class="focus-box" id="focus-box" hidden><b>Что повторить</b><div id="focus-topics"></div></div>
+        <div class="result-actions"><button class="button primary" id="restart">Пройти ещё раз</button><a class="button secondary" href="sources.html">К материалам</a></div>
       </div>
     </section>
+    <p class="quiz-disclaimer">Это ориентир для самооценки, а не сертификация. Важнее не балл, а темы, которые стоит проверить на практике.</p>
   </main>
   <script src="content.js"></script>
   <script src="test.js"></script>
