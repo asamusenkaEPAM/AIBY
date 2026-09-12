@@ -53,7 +53,7 @@ function chooseAnswer(event) {
     if (index === selected && selected !== item.correct) button.classList.add("wrong");
   });
   const verdict = selected === item.correct ? "Верно." : "Не совсем.";
-  explanation.innerHTML = `<b>${verdict}</b> ${item.explanation} <a href="${item.readMore}" target="_blank" rel="noopener">Разобраться ↗</a>`;
+  explanation.innerHTML = `<b>${verdict}</b> ${item.explanation}`;
   explanation.hidden = false;
   next.disabled = false;
   scoreLabel.textContent = pointsLabel(score);

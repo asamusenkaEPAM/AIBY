@@ -88,7 +88,6 @@ footer { min-height: 76px; padding-block: 24px; display: flex; align-items: cent
 .answer.wrong { border-color: #e4877e; background: #fff2f0; }
 .answer.wrong > span { color: white; background: var(--red); }
 .explanation { margin-top: 16px; padding: 16px 18px; color: #3f4d61; background: #f0f4ff; border-left: 3px solid var(--blue); font-size: 13px; line-height: 1.6; }
-.explanation a { display: inline-block; margin-left: 5px; color: var(--blue); font-weight: 800; text-decoration: none; }
 .quiz-controls { margin-top: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .quiet-link { color: var(--muted); font-size: 13px; font-weight: 700; text-decoration: none; }
 .next-button:disabled { opacity: .35; cursor: not-allowed; transform: none; box-shadow: none; }

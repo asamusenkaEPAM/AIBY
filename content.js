@@ -12,7 +12,6 @@ const quizQuestions = [
     ],
     correct: 1,
     explanation: "Агент отличается циклом действий: он планирует, вызывает инструменты, наблюдает результат и корректирует следующий шаг.",
-    readMore: "https://www.epam.com/insights/ai/blogs/designing-context-aware-sdlc-agents-at-enterprise-scale-integration-and-orchestration-lessons-from-cursor-aws-bedrock-n8n-and-codemie"
   },
   {
     topic: "Архитектура",
@@ -26,7 +25,6 @@ const quizQuestions = [
     ],
     correct: 1,
     explanation: "Надёжная система ограничивает размер шага, использует проверяемые критерии и оставляет контрольные точки между изменениями.",
-    readMore: "https://www.epam.com/insights/ai/blogs/codemie-to-enable-ai-native-software-delivery"
   },
   {
     topic: "Проверка качества",
@@ -40,7 +38,6 @@ const quizQuestions = [
     ],
     correct: 2,
     explanation: "Самооценка модели полезна только как один из сигналов. Основа — независимые тесты, evals, статический анализ и критерии приёмки.",
-    readMore: "https://coderpad.io/survey-reports/coderpad-state-of-tech-hiring-2026/"
   },
   {
     topic: "RAG",
@@ -54,7 +51,6 @@ const quizQuestions = [
     ],
     correct: 1,
     explanation: "RAG находит релевантные фрагменты во внешней базе знаний и передаёт их модели как контекст перед ответом.",
-    readMore: "https://www.epam.com/insights/ai/blogs/designing-context-aware-sdlc-agents-at-enterprise-scale-integration-and-orchestration-lessons-from-cursor-aws-bedrock-n8n-and-codemie"
   },
   {
     topic: "MCP",
@@ -68,7 +64,6 @@ const quizQuestions = [
     ],
     correct: 0,
     explanation: "MCP стандартизирует подключение AI-приложений к инструментам, данным и повторно используемым интеграциям.",
-    readMore: "https://modelcontextprotocol.io/docs/getting-started/intro"
   },
   {
     topic: "Поиск",
@@ -82,7 +77,6 @@ const quizQuestions = [
     ],
     correct: 1,
     explanation: "Векторный поиск сопоставляет данные по смысловой близости. Он часто используется как слой поиска в RAG, но не заменяет все виды хранения.",
-    readMore: "https://www.epam.com/insights/ai/blogs/designing-context-aware-sdlc-agents-at-enterprise-scale-integration-and-orchestration-lessons-from-cursor-aws-bedrock-n8n-and-codemie"
   },
   {
     topic: "Контроль",
@@ -96,7 +90,6 @@ const quizQuestions = [
     ],
     correct: 0,
     explanation: "Чем выше цена ошибки и сложнее откат, тем важнее явное подтверждение человеком и понятный журнал действий.",
-    readMore: "https://coderpad.io/survey-reports/coderpad-state-of-tech-hiring-2026/"
   },
   {
     topic: "Observability",
@@ -110,7 +103,6 @@ const quizQuestions = [
     ],
     correct: 2,
     explanation: "Наблюдаемость делает поведение агента разборным: видно, на каком шаге он получил неверный контекст или выбрал плохое действие.",
-    readMore: "https://www.dice.com/hiring/recruitment/reports/tech-hiring-myths-vs-reality"
   },
   {
     topic: "Инженерная база",
@@ -124,7 +116,6 @@ const quizQuestions = [
     ],
     correct: 1,
     explanation: "Профессиональная база нужна именно для распознавания качества: AI ускоряет работу, но не отменяет инженерную ответственность.",
-    readMore: "https://coderpad.io/survey-reports/coderpad-state-of-tech-hiring-2026/"
   },
   {
     topic: "Собеседование",
@@ -138,7 +129,6 @@ const quizQuestions = [
     ],
     correct: 2,
     explanation: "Интервьюеру важен управляемый процесс: ваше мышление, выбор, проверка и способность заметить ошибку инструмента.",
-    readMore: "https://www.linkedin.com/posts/alinelerner_is-ai-changing-technical-interviews-are-activity-7374535779009617921-0l6t"
   }
 ];
 
