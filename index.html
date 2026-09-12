@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Материалы сообщества AI BY и интерактивный тест по основам AI.">
+  <title>AI BY — материалы и тест</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="nav shell">
+    <a class="brand" href="#top" aria-label="AI BY — на главную">
+      <span class="brand-mark">AI</span><span>BY Community</span>
+    </a>
+    <a class="nav-link" href="#quiz">Пройти тест</a>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow">Learn · Share · Build</p>
+        <h1>Разбираемся в AI<br><span>вместе</span></h1>
+        <p class="lead">Статьи, выступления и практические материалы сообщества AI BY — в одном месте.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#resources">Смотреть материалы</a>
+          <a class="button secondary" href="#quiz">Проверить знания</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orb orb-one"></div><div class="orb orb-two"></div>
+        <div class="code-card"><span>01</span><strong>Human</strong><i>sets direction</i></div>
+        <div class="code-card shift"><span>02</span><strong>AI</strong><i>amplifies action</i></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="resources">
+      <div class="section-heading">
+        <div><p class="eyebrow">Resources</p><h2>Полезные материалы</h2></div>
+        <p>Начни с интересующей темы или переходи сразу к тесту.</p>
+      </div>
+      <div class="resource-grid" id="resource-grid"></div>
+    </section>
+
+    <section class="quiz-banner shell" id="quiz">
+      <div>
+        <p class="eyebrow">Quick check</p>
+        <h2>Насколько хорошо ты знаешь основы AI?</h2>
+        <p>7 вопросов · около 3 минут · результат сразу</p>
+      </div>
+      <a class="button light" href="test.html">Начать тест <span>→</span></a>
+    </section>
+  </main>
+
+  <footer class="shell"><span>AI BY Community</span><span>Made for curious minds</span></footer>
+  <script src="content.js"></script>
+  <script>renderResources();</script>
+</body>
+</html>

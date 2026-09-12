@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тест по AI — AI BY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="quiz-page">
+  <header class="nav shell">
+    <a class="brand" href="index.html"><span class="brand-mark">AI</span><span>BY Community</span></a>
+    <a class="nav-link" href="index.html">← На главную</a>
+  </header>
+
+  <main class="quiz-shell">
+    <section class="quiz-card" id="quiz-card">
+      <div id="quiz-view">
+        <div class="quiz-meta"><span id="counter">Вопрос 1 из 7</span><span id="score-label">0 баллов</span></div>
+        <div class="progress" aria-label="Прогресс теста"><div id="progress-bar"></div></div>
+        <p class="quiz-topic" id="topic"></p>
+        <h1 id="question"></h1>
+        <div class="answers" id="answers"></div>
+        <div class="explanation" id="explanation" hidden></div>
+        <button class="button primary next-button" id="next" disabled>Далее →</button>
+      </div>
+      <div class="result" id="result-view" hidden>
+        <div class="result-ring" id="result-ring"><strong id="result-score">0/7</strong></div>
+        <p class="eyebrow">Тест завершён</p>
+        <h1 id="result-title">Хороший результат!</h1>
+        <p id="result-copy"></p>
+        <div class="result-actions">
+          <button class="button primary" id="restart">Пройти ещё раз</button>
+          <a class="button secondary" href="index.html#resources">К материалам</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="content.js"></script>
+  <script src="test.js"></script>
+</body>
+</html>
