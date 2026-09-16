@@ -1,3 +1,4 @@
 # Local working copy of the article; never publish it with the site.
 article-reference.md
 .codex-remote-attachments/
+_gitlab/
