@@ -87,10 +87,6 @@ footer { min-height: 76px; padding-block: 24px; display: flex; align-items: cent
 .article-stats span { padding: 8px 11px; color: var(--acid); border: 1px solid rgba(202,255,74,.35); border-radius: 99px; font: 600 12px Roboto Mono, monospace; }
 .article-cta { display: flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 800; }
 .article-cta b { color: var(--acid); font-size: 20px; }
-.showcase-card { background: #3d1d6b; box-shadow: 18px 18px 0 #ffb2e2; }
-.showcase-card:hover { box-shadow: 18px 22px 0 #ffb2e2; }
-.showcase-card .article-number, .showcase-card .article-stats span, .showcase-card .article-cta b { color: #ffb2e2; }
-.showcase-card .article-stats span { border-color: rgba(255,178,226,.35); }
 
 /* Quiz */
 .quiz-page { min-height: 100vh; background: #eef1f5; }
@@ -211,7 +207,5 @@ footer { min-height: 76px; padding-block: 24px; display: flex; align-items: cent
   .article-list { margin-top: 40px; }
   .article-card { margin-right: 10px; padding: 26px 22px; grid-template-columns: 1fr; gap: 18px; box-shadow: 10px 10px 0 var(--acid); }
   .article-card:hover { box-shadow: 10px 14px 0 var(--acid); }
-  .showcase-card { box-shadow: 10px 10px 0 #ffb2e2; }
-  .showcase-card:hover { box-shadow: 10px 14px 0 #ffb2e2; }
   .article-number, .article-cta { grid-column: 1; }
 }
