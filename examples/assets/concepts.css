@@ -1,0 +1,219 @@
+/* Eight deliberately different art directions layered over the shared accessible base. */
+.visual-card { background-position: center; background-size: cover; }
+.visual-card::before, .visual-card::after { display: none; }
+.visual-icon { display: none; }
+.visual-label { padding: 10px 12px; color: #fff; background: rgba(0,0,0,.48); border-radius: 99px; backdrop-filter: blur(8px); }
+
+/* 01 — CV: sharp editorial portfolio */
+.theme-cv { --bg:#f5f2eb; --surface:#fff; }
+.theme-cv .site-header { border-bottom: 2px solid var(--ink); }
+.theme-cv .hero { min-height: 820px; grid-template-columns: .78fr 1.22fr; gap: 42px; }
+.theme-cv .hero h1 { font-size: clamp(58px,6.4vw,96px); }
+.theme-cv .hero-lead { max-width: 520px; }
+.theme-cv .visual { min-height: 700px; }
+.theme-cv .visual-card { width:100%; min-height:680px; background-image:url('images/cv-hero.webp'); background-position:58% center; border-radius:0; box-shadow:16px 16px 0 var(--accent-2); }
+.theme-cv .visual-label { border-radius:0; background:var(--ink); }
+.theme-cv .visual-note { right:-10px; bottom:30px; border:2px solid var(--ink); border-radius:0; box-shadow:8px 8px 0 var(--accent); }
+.theme-cv .trust { background:var(--ink); color:#fff; border:0; padding:22px; }
+.theme-cv .trust-item { border-color:rgba(255,255,255,.2); }
+.theme-cv .trust span { color:#b9bbb8; }
+.theme-cv .cards { grid-template-columns:1fr; counter-reset:case; }
+.theme-cv .card { min-height:0; padding:30px 0; display:grid; grid-template-columns:100px 1fr 230px; align-items:center; gap:25px; background:transparent; border:0; border-top:2px solid var(--ink); border-radius:0; }
+.theme-cv .card::before { counter-increment:case; content:'0' counter(case); color:var(--accent); font:800 34px Manrope,sans-serif; }
+.theme-cv .card-icon { display:none; }
+.theme-cv .card h3, .theme-cv .card .price { margin:0; }
+.theme-cv .card p { max-width:620px; }
+.theme-cv .panel { color:var(--ink); background:var(--accent-2); border-radius:0; }
+
+/* 02 — Handmade: quiet, tactile atelier */
+.theme-handmade .hero { min-height:900px; grid-template-columns:1.15fr .85fr; gap:70px; }
+.theme-handmade .hero-copy { order:2; }
+.theme-handmade .visual { order:1; min-height:780px; }
+.theme-handmade .visual-card { width:100%; min-height:760px; background-image:url('images/handmade-hero.webp'); background-position:center; border-radius:260px 260px 18px 18px; box-shadow:none; }
+.theme-handmade .visual-label { margin-top:500px; color:var(--ink); background:rgba(248,241,231,.88); }
+.theme-handmade .visual-note { left:-28px; right:auto; bottom:42px; border:0; border-radius:50% 50% 8px 50%; }
+.theme-handmade .hero h1 { font-size:clamp(60px,7vw,104px); }
+.theme-handmade .button { border-radius:4px 28px 4px 28px; }
+.theme-handmade .trust { border-style:dashed; }
+.theme-handmade .cards { grid-template-columns:1.2fr .8fr 1fr; align-items:start; }
+.theme-handmade .card { border:0; background:#efe0cb; box-shadow:none; }
+.theme-handmade .card:nth-child(1) { min-height:430px; }
+.theme-handmade .card:nth-child(2) { margin-top:90px; min-height:340px; background:#d8b084; }
+.theme-handmade .card:nth-child(3) { min-height:500px; background:#c98c6f; }
+.theme-handmade .panel { min-height:600px; border-radius:180px 180px 20px 20px; }
+
+/* 03 — Car wash: cinematic full-bleed landing */
+.theme-wash { --bg:#031d29; --surface:#082d3d; --ink:#f4fbff; --muted:#9fc1cf; --line:rgba(255,255,255,.15); }
+.theme-wash .site-header { width:calc(100% - 80px); position:absolute; left:40px; right:40px; color:#fff; border-color:rgba(255,255,255,.3); }
+.theme-wash .logo-mark, .theme-wash .nav .nav-cta { color:#031d29; background:var(--accent-2); }
+.theme-wash .nav a { color:#d5edf6; }
+.theme-wash .hero.wrap { width:100%; min-height:900px; padding:0; display:block; position:relative; }
+.theme-wash .hero::after { content:''; position:absolute; inset:0; z-index:1; background:linear-gradient(90deg,rgba(1,12,18,.92) 0%,rgba(1,15,22,.7) 35%,transparent 72%); pointer-events:none; }
+.theme-wash .hero-copy { position:absolute; z-index:3; left:max(48px,calc((100% - 1180px)/2)); top:220px; max-width:680px; }
+.theme-wash .hero h1 { color:#fff; font-size:clamp(64px,7.5vw,116px); text-transform:uppercase; }
+.theme-wash .hero h1 em { color:var(--accent-2); font-family:Manrope,sans-serif; font-style:normal; }
+.theme-wash .hero-lead { color:#c7e1eb; }
+.theme-wash .visual { position:absolute; inset:0; min-height:900px; display:block; }
+.theme-wash .visual-card { width:100%; height:100%; min-height:900px; padding:32px; background-image:url('images/car-wash-hero.webp'); background-position:center; border-radius:0; box-shadow:none; }
+.theme-wash .visual-label { position:absolute; right:42px; bottom:42px; width:260px; }
+.theme-wash .visual-note { right:42px; top:130px; bottom:auto; color:#fff; background:rgba(3,29,41,.72); border-color:rgba(255,255,255,.3); backdrop-filter:blur(12px); }
+.theme-wash .trust { color:#fff; background:#041822; }
+.theme-wash .section h2 { color:#fff; }
+.theme-wash .card { color:#fff; background:linear-gradient(145deg,#082c3b,#051e2a); }
+.theme-wash .card:nth-child(2) { border-color:var(--accent-2); transform:translateY(-24px); }
+.theme-wash .panel { background:#0477bf; }
+
+/* 04 — Plumber: bold utilitarian poster */
+.theme-plumber .site-header { border:3px solid var(--ink); border-top:0; padding-inline:18px; }
+.theme-plumber .logo-mark { color:#fff; background:#1458b8; border-radius:0; }
+.theme-plumber .nav .nav-cta { background:#d73d2b; border-radius:0; }
+.theme-plumber .hero { min-height:760px; grid-template-columns:1fr 1fr; gap:0; }
+.theme-plumber .visual { order:1; min-height:620px; }
+.theme-plumber .hero-copy { order:2; min-height:620px; padding:54px; display:flex; flex-direction:column; justify-content:center; background:#ffd44e; border:3px solid var(--ink); border-left:0; }
+.theme-plumber .hero h1 { font-size:clamp(52px,5.5vw,78px); }
+.theme-plumber .hero h1 em { color:#1458b8; font-family:Manrope,sans-serif; font-style:normal; text-decoration:underline; }
+.theme-plumber .visual-card { width:100%; min-height:620px; background-image:url('images/plumber-hero.webp'); border:3px solid var(--ink); border-radius:0; box-shadow:none; }
+.theme-plumber .visual-label { border-radius:0; background:#1458b8; }
+.theme-plumber .visual-note { left:24px; right:auto; border:3px solid var(--ink); border-radius:0; box-shadow:7px 7px 0 #d73d2b; }
+.theme-plumber .trust { padding:0; gap:0; border:3px solid var(--ink); }
+.theme-plumber .trust-item { padding:22px; border-color:var(--ink); }
+.theme-plumber .trust-item:nth-child(odd) { background:#fff; }
+.theme-plumber .trust-item:nth-child(even) { background:#bdd8ff; }
+.theme-plumber .cards { gap:0; }
+.theme-plumber .card { border:3px solid var(--ink); border-right:0; border-radius:0; box-shadow:none; }
+.theme-plumber .card:last-child { border-right:3px solid var(--ink); }
+.theme-plumber .card-icon { background:#ffd44e; border:2px solid var(--ink); border-radius:0; }
+.theme-plumber .panel { color:var(--ink); background:#ff6b52; border:3px solid var(--ink); border-radius:0; }
+
+/* 05 — Flowers: romantic fashion editorial */
+.theme-flowers .site-header { min-height:100px; border:0; }
+.theme-flowers .logo { font-size:25px; }
+.theme-flowers .nav .nav-cta { color:#fff; background:#7e263f; }
+.theme-flowers .hero { min-height:950px; grid-template-columns:1.05fr .95fr; gap:0; padding-top:20px; }
+.theme-flowers .visual { order:1; min-height:830px; }
+.theme-flowers .hero-copy { order:2; position:relative; z-index:2; margin-left:-70px; padding:75px 10px 75px 90px; background:rgba(249,245,241,.94); }
+.theme-flowers .hero h1 { font-size:clamp(66px,7.2vw,108px); font-weight:600; }
+.theme-flowers .visual-card { width:100%; min-height:830px; background-image:url('images/flowers-hero.webp'); background-position:center top; border-radius:220px 220px 0 0; box-shadow:none; }
+.theme-flowers .visual-label { margin-top:650px; background:rgba(72,20,40,.75); }
+.theme-flowers .visual-note { left:20px; right:auto; border:0; border-radius:50%; width:180px; height:180px; display:flex; flex-direction:column; justify-content:center; text-align:center; }
+.theme-flowers .trust { border:0; color:#fff; background:#4a2434; }
+.theme-flowers .trust span { color:#e8cbd5; }
+.theme-flowers .cards { gap:38px; align-items:start; }
+.theme-flowers .card { min-height:420px; padding:28px 0; background:transparent; border:0; border-top:1px solid #7e263f; border-radius:0; }
+.theme-flowers .card:nth-child(2) { margin-top:110px; }
+.theme-flowers .card h3 { margin-top:130px; font-size:32px; }
+.theme-flowers .panel { min-height:650px; border-radius:320px 320px 20px 20px; background:#6d2c44; }
+
+/* 06 — Computer repair: dark terminal / workshop */
+.theme-repair { --bg:#0d0f0e; --surface:#151916; --ink:#f2f5f1; --muted:#8f9a92; --line:#303630; --display:'Roboto Mono',monospace; --body:'Roboto Mono',monospace; }
+.theme-repair .site-header { color:#fff; border-bottom:1px solid #3a423b; }
+.theme-repair .logo-mark { color:#111; background:var(--accent-2); }
+.theme-repair .nav a { color:#aab4ad; }
+.theme-repair .nav .nav-cta { color:#111; background:var(--accent-2); border-radius:2px; }
+.theme-repair .hero { min-height:900px; grid-template-columns:1fr; grid-template-rows:1fr; padding-block:35px 70px; }
+.theme-repair .visual { grid-area:1/1; min-height:760px; }
+.theme-repair .visual-card { width:100%; min-height:760px; background-image:linear-gradient(90deg,rgba(0,0,0,.75),transparent 65%),url('images/repair-hero.webp'); background-position:center; border:1px solid #394138; box-shadow:12px 12px 0 var(--accent-2); }
+.theme-repair .hero-copy { grid-area:1/1; align-self:end; z-index:2; max-width:760px; padding:40px; background:rgba(9,12,10,.9); border:1px solid #3d463e; }
+.theme-repair .hero h1 { font-size:clamp(48px,5.6vw,80px); }
+.theme-repair .hero h1 em { color:var(--accent-2); font-family:inherit; font-style:normal; }
+.theme-repair .hero-lead { color:#a6b0a8; }
+.theme-repair .visual-note { top:28px; right:28px; bottom:auto; color:#111; background:var(--accent-2); border:0; border-radius:2px; }
+.theme-repair .trust { color:#fff; border-color:#343a35; }
+.theme-repair .trust span { color:#7f8c83; }
+.theme-repair .section h2 { color:#fff; }
+.theme-repair .cards { grid-template-columns:1fr; gap:8px; }
+.theme-repair .card { min-height:0; padding:22px; display:grid; grid-template-columns:54px 280px 1fr auto; align-items:center; gap:18px; color:#fff; background:#151916; border:1px solid #343b35; border-radius:2px; }
+.theme-repair .card h3,.theme-repair .card p,.theme-repair .card .price { margin:0; }
+.theme-repair .card-icon { width:42px; height:42px; color:#111; background:var(--accent-2); border-radius:2px; }
+.theme-repair .panel { border:1px solid #424a43; border-radius:2px; background:#151916; box-shadow:12px 12px 0 #6b46e5; }
+
+/* 07 — Bike rental: sunlit campaign poster */
+.theme-bike .site-header { border-bottom:2px solid #173d2c; }
+.theme-bike .logo-mark { background:#e64b2e; }
+.theme-bike .hero { min-height:900px; grid-template-columns:1fr; position:relative; padding-top:45px; }
+.theme-bike .visual { min-height:760px; }
+.theme-bike .visual-card { width:100%; min-height:760px; background-image:url('images/bike-hero.webp'); background-position:center; border-radius:0; box-shadow:14px 14px 0 #173d2c; transform:rotate(0); }
+.theme-bike .hero-copy { position:absolute; z-index:2; left:-14px; bottom:40px; max-width:720px; padding:40px; background:#f5d84a; transform:rotate(-2deg); border:3px solid #173d2c; }
+.theme-bike .hero h1 { font-size:clamp(56px,6.4vw,92px); }
+.theme-bike .hero h1 em { color:#e64b2e; font-family:Manrope,sans-serif; font-style:normal; }
+.theme-bike .hero-lead { color:#39473e; }
+.theme-bike .visual-label { background:#e64b2e; }
+.theme-bike .visual-note { top:28px; right:28px; bottom:auto; transform:rotate(4deg); border:3px solid #173d2c; box-shadow:7px 7px 0 #f5d84a; }
+.theme-bike .trust { border:0; gap:12px; }
+.theme-bike .trust-item { border:2px solid #173d2c; background:#fff8d6; transform:rotate(-1deg); }
+.theme-bike .trust-item:nth-child(even) { background:#e64b2e; color:#fff; transform:rotate(1deg); }
+.theme-bike .trust-item:nth-child(even) span { color:#ffe9df; }
+.theme-bike .cards { gap:24px; }
+.theme-bike .card { border:2px solid #173d2c; box-shadow:8px 8px 0 #173d2c; }
+.theme-bike .card:nth-child(1) { background:#f5d84a; transform:rotate(-2deg); }
+.theme-bike .card:nth-child(2) { background:#dbe5bd; transform:translateY(28px) rotate(1deg); }
+.theme-bike .card:nth-child(3) { color:#fff; background:#e64b2e; transform:rotate(2deg); }
+.theme-bike .card:nth-child(3) p,.theme-bike .card:nth-child(3) .price { color:#ffe0d9; }
+.theme-bike .panel { color:#173d2c; background:#f5d84a; transform:rotate(-1deg); }
+
+/* 08 — Pet sitter: playful paper-collage world */
+.theme-pet .site-header { border:0; }
+.theme-pet .logo-mark { color:#fff; background:#e56045; }
+.theme-pet .hero { min-height:900px; grid-template-columns:1fr; position:relative; padding-top:25px; }
+.theme-pet .visual { min-height:760px; }
+.theme-pet .visual-card { width:100%; min-height:760px; background-image:url('images/pet-hero.webp'); background-position:center; border-radius:52px 180px 48px 180px; box-shadow:16px 16px 0 #8ed9c2; }
+.theme-pet .hero-copy { position:absolute; z-index:2; left:45px; top:90px; max-width:610px; padding:36px; background:rgba(255,242,223,.92); border:2px solid #523329; border-radius:50px 18px 50px 18px; }
+.theme-pet .hero h1 { font-size:clamp(54px,6vw,86px); }
+.theme-pet .visual-label { background:#523329; }
+.theme-pet .visual-note { right:45px; bottom:30px; background:#fff2df; border:2px solid #523329; border-radius:50% 50% 8px 50%; }
+.theme-pet .trust { padding:18px; gap:10px; border:0; }
+.theme-pet .trust-item { border:0; border-radius:50px; background:#fff; text-align:center; }
+.theme-pet .trust-item:nth-child(2) { background:#8ed9c2; }
+.theme-pet .trust-item:nth-child(3) { background:#ffc54d; }
+.theme-pet .trust-item:nth-child(4) { color:#fff; background:#e56045; }
+.theme-pet .trust-item:nth-child(4) span { color:#ffe4de; }
+.theme-pet .card { border:0; box-shadow:none; }
+.theme-pet .card:nth-child(1) { background:#8ed9c2; border-radius:80px 24px 80px 24px; }
+.theme-pet .card:nth-child(2) { background:#ffc54d; border-radius:24px 80px 24px 80px; }
+.theme-pet .card:nth-child(3) { background:#f3aa94; border-radius:80px 80px 24px 24px; }
+.theme-pet .panel { color:#2c2420; background:#8ed9c2; border-radius:80px 24px 80px 24px; }
+
+@media (max-width:900px) {
+  .theme-cv .hero,.theme-handmade .hero,.theme-plumber .hero,.theme-flowers .hero { grid-template-columns:1fr; }
+  .theme-cv .visual-card,.theme-handmade .visual-card,.theme-flowers .visual-card { min-height:650px; }
+  .theme-handmade .hero-copy,.theme-flowers .hero-copy { order:initial; margin-left:0; }
+  .theme-handmade .visual,.theme-flowers .visual { order:initial; }
+  .theme-plumber .hero-copy { border:3px solid var(--ink); border-top:0; }
+  .theme-wash .hero-copy { left:40px; }
+  .theme-repair .card { grid-template-columns:54px 1fr; }
+  .theme-repair .card p,.theme-repair .card .price { grid-column:2; }
+  .theme-bike .hero-copy,.theme-pet .hero-copy { left:20px; right:20px; }
+}
+
+@media (max-width:640px) {
+  .theme-cv .hero,.theme-handmade .hero,.theme-flowers .hero { min-height:0; }
+  .theme-cv .visual,.theme-handmade .visual,.theme-flowers .visual { min-height:480px; }
+  .theme-cv .visual-card,.theme-handmade .visual-card,.theme-flowers .visual-card { min-height:470px; }
+  .theme-cv .cards,.theme-handmade .cards,.theme-flowers .cards { grid-template-columns:1fr; }
+  .theme-cv .card { grid-template-columns:58px 1fr; }
+  .theme-cv .card p,.theme-cv .card .price { grid-column:2; }
+  .theme-handmade .card:nth-child(n),.theme-flowers .card:nth-child(n) { min-height:280px; margin-top:0; }
+  .theme-handmade .visual-label,.theme-flowers .visual-label { margin-top:330px; }
+  .theme-wash .site-header { width:calc(100% - 28px); left:14px; right:14px; }
+  .theme-wash .hero.wrap,.theme-wash .visual,.theme-wash .visual-card { min-height:820px; }
+  .theme-wash .hero-copy { left:20px; right:20px; top:150px; }
+  .theme-wash .hero h1 { font-size:51px; }
+  .theme-wash .visual-card { background-position:62% center; }
+  .theme-wash .visual-note { display:none; }
+  .theme-plumber .hero-copy { min-height:520px; padding:30px 22px; }
+  .theme-plumber .visual,.theme-plumber .visual-card { min-height:410px; }
+  .theme-plumber .trust { border-width:2px; }
+  .theme-plumber .card { border-right:3px solid var(--ink); }
+  .theme-repair .hero { min-height:780px; }
+  .theme-repair .visual,.theme-repair .visual-card { min-height:720px; }
+  .theme-repair .hero-copy { padding:24px; }
+  .theme-repair .card { grid-template-columns:44px 1fr; }
+  .theme-bike .hero,.theme-pet .hero { min-height:800px; }
+  .theme-bike .visual,.theme-bike .visual-card,.theme-pet .visual,.theme-pet .visual-card { min-height:740px; }
+  .theme-bike .visual-card { background-position:46% center; }
+  .theme-bike .hero-copy { bottom:15px; padding:25px 20px; }
+  .theme-bike .hero h1,.theme-pet .hero h1 { font-size:48px; }
+  .theme-pet .hero-copy { top:55px; padding:24px 20px; }
+  .theme-pet .visual-card { background-position:57% center; border-radius:30px 90px 30px 90px; }
+  .theme-pet .hero-lead { margin-bottom:18px; }
+}
