@@ -143,16 +143,6 @@ img, svg { display: block; max-width: 100%; }
 .theme-pet .visual-card::before { background:#eb7c62; }
 .theme-pet .card-icon { border-radius:50%; }
 
-.theme-english-club { --bg:#f7f2e7; --ink:#152f38; --muted:#65747a; --accent:#e85e46; --accent-2:#ffd05b; --dark:#123e4b; --radius:28px; }
-.theme-english-club .logo-mark { color:#123e4b; background:#ffd05b; }
-.theme-english-club .visual-card { background:linear-gradient(155deg,#155468,#0e3440); transform:rotate(-1.5deg); }
-.theme-english-club .visual-card::before { background:#f27055; }
-.theme-english-club .visual-card::after { background:#ffd05b; opacity:.95; }
-.theme-english-club .visual-note { transform:rotate(2.5deg); }
-.theme-english-club .card-icon { width:52px; color:#123e4b; font:800 14px Manrope,sans-serif; }
-.theme-english-club .panel { background:linear-gradient(145deg,#e85e46,#c94332); }
-.theme-english-club .panel::before,.theme-english-club .panel::after { border-width:2px; }
-
 /* Examples catalog */
 .examples-page { --bg:#f2f4ee; --ink:#152019; --accent:#375e45; }
 .examples-hero { padding-block: 84px 60px; }

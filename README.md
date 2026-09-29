@@ -26,6 +26,7 @@
 
 - [Открыть витрину примеров](https://asamusenkaepam.github.io/AIBY/examples/)
 - Отдельные примеры: CV, хендмейд, автомойка, услуги сантехника, цветочный магазин, ремонт компьютеров, прокат велосипедов, пет-ситтер и разговорный клуб
+- [Сайт Budva English Conversation Club](https://asamusenkaepam.github.io/budva-english-club/) — отдельный проект
 
 ## Как устроен репозиторий
 
