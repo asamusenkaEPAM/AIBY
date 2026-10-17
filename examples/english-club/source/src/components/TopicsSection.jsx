@@ -1,27 +1,153 @@
-import { BookOpen, Coffee, Compass, Film, Globe2, Sparkles } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight, Shuffle, Sparkles } from 'lucide-react';
+import conversationTopics from '../data/conversationTopics';
 
-const topics = [
-  [Compass, 'Travel stories', 'A place that changed the way you see the world.'],
-  [Globe2, 'Culture & home', 'The traditions we keep and the ones we discover.'],
-  [Coffee, 'Everyday life', 'Small rituals, useful habits, and local discoveries.'],
-  [Film, 'Films & music', 'Stories and songs worth recommending to the table.'],
-  [BookOpen, 'Books & ideas', 'A thought you cannot stop thinking about.'],
-  [Sparkles, 'Big questions', 'Curiosity, choices, friendship, and what comes next.'],
-];
+const STORAGE_KEY = 'english-club-topic-index';
+
+function savedTopicIndex() {
+  if (typeof window === 'undefined') return 0;
+
+  try {
+    const storedIndex = Number.parseInt(window.localStorage.getItem(STORAGE_KEY), 10);
+    return Number.isInteger(storedIndex) && storedIndex >= 0 && storedIndex < conversationTopics.length
+      ? storedIndex
+      : 0;
+  } catch {
+    return 0;
+  }
+}
 
 export default function TopicsSection() {
+  const [currentIndex, setCurrentIndex] = useState(savedTopicIndex);
+  const [direction, setDirection] = useState('next');
+  const touchStartX = useRef(null);
+  const topic = conversationTopics[currentIndex];
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, String(currentIndex));
+    } catch {
+      // The deck still works when storage is disabled.
+    }
+  }, [currentIndex]);
+
+  const move = (step) => {
+    setDirection(step > 0 ? 'next' : 'previous');
+    setCurrentIndex((index) => (index + step + conversationTopics.length) % conversationTopics.length);
+  };
+
+  const surpriseMe = () => {
+    let nextIndex = currentIndex;
+    while (nextIndex === currentIndex) {
+      nextIndex = Math.floor(Math.random() * conversationTopics.length);
+    }
+    setDirection('random');
+    setCurrentIndex(nextIndex);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      move(-1);
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      move(1);
+    }
+  };
+
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX.current === null) return;
+    const distance = (event.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(distance) < 50) return;
+    move(distance < 0 ? 1 : -1);
+  };
+
   return (
     <section id="topics" className="bg-cream py-24 lg:py-32">
       <div className="page-shell">
-        <div className="reveal max-w-3xl"><p className="eyebrow">Conversation topics</p><h2 className="section-title mt-6">There is always something worth talking about.</h2><p className="mt-6 max-w-2xl text-lg leading-relaxed text-navy/65">These are examples, not a syllabus. Follow the conversation, choose a card, or bring the question you have been saving for the right table.</p></div>
-        <div className="mt-12 grid gap-px overflow-hidden rounded-[30px] border border-navy/10 bg-navy/10 md:grid-cols-2 xl:grid-cols-3">
-          {topics.map(([Icon, title, description], index) => (
-            <article key={title} className="reveal group bg-cream p-7 transition-colors hover:bg-peach sm:p-8" style={{ transitionDelay: `${index * 55}ms` }}>
-              <Icon className="size-6 text-terracotta transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" strokeWidth={1.5} aria-hidden="true" />
-              <h3 className="mt-10 font-display text-2xl">{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-navy/60">{description}</p>
-            </article>
-          ))}
+        <div className="reveal grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:items-end">
+          <div>
+            <p className="eyebrow">Conversation topics</p>
+            <h2 className="section-title mt-6 max-w-4xl">Pick a card. Start somewhere unexpected.</h2>
+          </div>
+          <p className="max-w-xl text-lg leading-relaxed text-navy/65 lg:justify-self-end">
+            One hundred conversation starters for the table. Each card gives you a theme and three easy ways into the discussion.
+          </p>
+        </div>
+
+        <div
+          className="reveal mt-12 outline-none"
+          role="group"
+          aria-label="Conversation topic deck"
+          aria-roledescription="carousel"
+          tabIndex="0"
+          onKeyDown={handleKeyDown}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <article
+            key={currentIndex}
+            className={`topic-card topic-card-${direction} relative overflow-hidden rounded-[34px] bg-ocean p-6 text-cream shadow-lift sm:p-9 lg:p-12`}
+            aria-live="polite"
+          >
+            <div className="absolute -right-16 -top-20 size-64 rounded-full border border-white/10" aria-hidden="true" />
+            <div className="absolute -bottom-36 -left-20 size-72 rounded-full bg-terracotta/10 blur-2xl" aria-hidden="true" />
+
+            <div className="relative flex items-center justify-between gap-4">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em]">
+                <Sparkles className="size-3.5 text-terracotta" aria-hidden="true" />
+                {topic.category}
+              </span>
+              <span className="text-sm font-bold tabular-nums text-cream/65">
+                {String(currentIndex + 1).padStart(2, '0')} / {conversationTopics.length}
+              </span>
+            </div>
+
+            <div className="relative mt-10 max-w-5xl sm:mt-14">
+              <h3 className="font-display text-[clamp(2.5rem,6vw,5.7rem)] font-medium leading-[0.98] tracking-[-0.04em]">
+                {topic.title}
+              </h3>
+              <ol className="mt-10 grid gap-3 md:grid-cols-3">
+                {topic.prompts.map((prompt, index) => (
+                  <li key={prompt} className="flex min-h-28 gap-4 rounded-[22px] border border-white/15 bg-white/8 p-5 backdrop-blur-sm sm:p-6">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-terracotta text-xs font-bold text-navy">
+                      {index + 1}
+                    </span>
+                    <p className="pt-1 text-base font-medium leading-relaxed text-cream/85">{prompt}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="relative mt-8 h-1.5 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+              <div
+                className="h-full rounded-full bg-terracotta transition-[width] duration-500"
+                style={{ width: `${((currentIndex + 1) / conversationTopics.length) * 100}%` }}
+              />
+            </div>
+
+            <div className="relative mt-7 flex flex-wrap items-center gap-3">
+              <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label="Previous conversation topic">
+                <ArrowLeft className="size-4" aria-hidden="true" />
+                Previous
+              </button>
+              <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" type="button" onClick={surpriseMe}>
+                <Shuffle className="size-4 text-terracotta" aria-hidden="true" />
+                Surprise me
+              </button>
+              <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(1)} aria-label="Next conversation topic">
+                Next
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </button>
+              <span className="ml-auto hidden text-xs font-medium text-cream/50 md:block">Use ← → keys or swipe</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
