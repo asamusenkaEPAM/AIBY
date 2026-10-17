@@ -1,6 +1,12 @@
 name: Update English Club event
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/update-english-club-event.yml
+      - examples/english-club/scripts/update-telegram-event.mjs
   schedule:
     - cron: '17,47 * * * *'
   workflow_dispatch:
