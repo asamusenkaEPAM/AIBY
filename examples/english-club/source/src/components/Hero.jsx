@@ -33,8 +33,8 @@ export default function Hero() {
         <div className="absolute -left-6 -top-6 size-24 rounded-full bg-terracotta/25 blur-2xl" aria-hidden="true" />
         <div className="hero-image-frame relative h-[410px] overflow-hidden shadow-lift sm:h-[500px] lg:h-[420px]">
           <img
-            src="./images/perast-hero.webp"
-            alt="Perast waterfront and the mountains of the Bay of Kotor in warm afternoon light"
+            src="./images/budva-old-town-hero.webp"
+            alt="Budva Old Town with its stone walls, terracotta roofs, church tower, and the Adriatic Sea"
             className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
             width="1600"
             height="1000"
