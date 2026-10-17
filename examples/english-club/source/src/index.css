@@ -65,18 +65,18 @@
 }
 
 @keyframes topic-from-right {
-  from { opacity: 0; transform: translateX(24px) scale(0.995); }
-  to { opacity: 1; transform: translateX(0) scale(1); }
+  from { transform: translateX(10px); }
+  to { transform: translateX(0); }
 }
 
 @keyframes topic-from-left {
-  from { opacity: 0; transform: translateX(-24px) scale(0.995); }
-  to { opacity: 1; transform: translateX(0) scale(1); }
+  from { transform: translateX(-10px); }
+  to { transform: translateX(0); }
 }
 
 @keyframes topic-random {
-  from { opacity: 0; transform: translateY(14px) scale(0.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { transform: translateY(4px); }
+  to { transform: translateY(0); }
 }
 
 .hero-event-card {
@@ -94,13 +94,13 @@
 .hero-event-step:nth-child(4) { animation-delay: 1060ms; }
 
 .topic-card { touch-action: pan-y; }
-.topic-card-next { animation: topic-from-right 420ms cubic-bezier(0.22, 1, 0.36, 1); }
-.topic-card-previous { animation: topic-from-left 420ms cubic-bezier(0.22, 1, 0.36, 1); }
-.topic-card-random { animation: topic-random 460ms cubic-bezier(0.22, 1, 0.36, 1); }
+.topic-card-content-next { animation: topic-from-right 220ms ease-out; }
+.topic-card-content-previous { animation: topic-from-left 220ms ease-out; }
+.topic-card-content-random { animation: topic-random 180ms ease-out; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
-  .hero-event-card, .hero-event-step, .topic-card { opacity: 1; transform: none; animation: none; }
+  .hero-event-card, .hero-event-step, .topic-card-content { opacity: 1; transform: none; animation: none; }
 }

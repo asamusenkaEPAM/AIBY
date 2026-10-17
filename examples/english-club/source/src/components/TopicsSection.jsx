@@ -20,7 +20,7 @@ function savedTopicIndex() {
 export default function TopicsSection() {
   const [currentIndex, setCurrentIndex] = useState(savedTopicIndex);
   const [direction, setDirection] = useState('next');
-  const touchStartX = useRef(null);
+  const touchStart = useRef(null);
   const topic = conversationTopics[currentIndex];
 
   useEffect(() => {
@@ -57,15 +57,40 @@ export default function TopicsSection() {
   };
 
   const handleTouchStart = (event) => {
-    touchStartX.current = event.touches[0]?.clientX ?? null;
+    if (event.touches.length !== 1 || event.target.closest?.('button, a')) {
+      touchStart.current = null;
+      return;
+    }
+
+    const touch = event.touches[0];
+    touchStart.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
+  };
+
+  const handleTouchMove = (event) => {
+    if (!touchStart.current || event.touches.length !== 1) return;
+
+    const touch = event.touches[0];
+    const distanceX = touch.clientX - touchStart.current.x;
+    const distanceY = touch.clientY - touchStart.current.y;
+
+    if (Math.abs(distanceY) > 12 && Math.abs(distanceY) > Math.abs(distanceX)) {
+      touchStart.current = null;
+    }
   };
 
   const handleTouchEnd = (event) => {
-    if (touchStartX.current === null) return;
-    const distance = (event.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
-    touchStartX.current = null;
-    if (Math.abs(distance) < 50) return;
-    move(distance < 0 ? 1 : -1);
+    if (!touchStart.current) return;
+
+    const touch = event.changedTouches[0];
+    const distanceX = (touch?.clientX ?? touchStart.current.x) - touchStart.current.x;
+    const distanceY = (touch?.clientY ?? touchStart.current.y) - touchStart.current.y;
+    touchStart.current = null;
+
+    const isDeliberateHorizontalSwipe = Math.abs(distanceX) >= 90
+      && Math.abs(distanceX) > Math.abs(distanceY) * 1.5;
+
+    if (!isDeliberateHorizontalSwipe) return;
+    move(distanceX < 0 ? 1 : -1);
   };
 
   return (
@@ -89,40 +114,46 @@ export default function TopicsSection() {
           tabIndex="0"
           onKeyDown={handleKeyDown}
           onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onTouchCancel={() => { touchStart.current = null; }}
         >
           <article
-            key={currentIndex}
-            className={`topic-card topic-card-${direction} relative overflow-hidden rounded-[34px] bg-ocean p-6 text-cream shadow-lift sm:p-9 lg:p-12`}
-            aria-live="polite"
+            className="topic-card relative overflow-hidden rounded-[34px] bg-ocean p-6 text-cream shadow-lift sm:p-9 lg:p-12"
           >
             <div className="absolute -right-16 -top-20 size-64 rounded-full border border-white/10" aria-hidden="true" />
             <div className="absolute -bottom-36 -left-20 size-72 rounded-full bg-terracotta/10 blur-2xl" aria-hidden="true" />
 
-            <div className="relative flex items-center justify-between gap-4">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em]">
-                <Sparkles className="size-3.5 text-terracotta" aria-hidden="true" />
-                {topic.category}
-              </span>
-              <span className="text-sm font-bold tabular-nums text-cream/65">
-                {String(currentIndex + 1).padStart(2, '0')} / {conversationTopics.length}
-              </span>
-            </div>
+            <div
+              key={currentIndex}
+              className={`topic-card-content topic-card-content-${direction}`}
+              aria-live="polite"
+            >
+              <div className="relative flex items-center justify-between gap-4">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em]">
+                  <Sparkles className="size-3.5 text-terracotta" aria-hidden="true" />
+                  {topic.category}
+                </span>
+                <span className="text-sm font-bold tabular-nums text-cream/65">
+                  {String(currentIndex + 1).padStart(2, '0')} / {conversationTopics.length}
+                </span>
+              </div>
 
-            <div className="relative mt-10 max-w-5xl sm:mt-14">
-              <h3 className="font-display text-[clamp(2.5rem,6vw,5.7rem)] font-medium leading-[0.98] tracking-[-0.04em]">
-                {topic.title}
-              </h3>
-              <ol className="mt-10 grid gap-3 md:grid-cols-3">
-                {topic.prompts.map((prompt, index) => (
-                  <li key={prompt} className="flex min-h-28 gap-4 rounded-[22px] border border-white/15 bg-white/8 p-5 backdrop-blur-sm sm:p-6">
-                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-terracotta text-xs font-bold text-navy">
-                      {index + 1}
-                    </span>
-                    <p className="pt-1 text-base font-medium leading-relaxed text-cream/85">{prompt}</p>
-                  </li>
-                ))}
-              </ol>
+              <div className="relative mt-10 max-w-5xl sm:mt-14">
+                <h3 className="font-display text-[clamp(2.5rem,6vw,5.7rem)] font-medium leading-[0.98] tracking-[-0.04em]">
+                  {topic.title}
+                </h3>
+                <ol className="mt-10 grid gap-3 md:grid-cols-3">
+                  {topic.prompts.map((prompt, index) => (
+                    <li key={prompt} className="flex min-h-28 gap-4 rounded-[22px] border border-white/15 bg-white/8 p-5 backdrop-blur-sm sm:p-6">
+                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-terracotta text-xs font-bold text-navy">
+                        {index + 1}
+                      </span>
+                      <p className="pt-1 text-base font-medium leading-relaxed text-cream/85">{prompt}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
 
             <div className="relative mt-8 h-1.5 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
