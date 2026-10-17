@@ -53,7 +53,7 @@ function isLocationUrl(value) {
 
 function extractSchedule(text, publishedAt) {
   const match = text.match(
-    /\b(?:(today|tomorrow)(?:\s*\((monday|tuesday|wednesday|thursday|friday|saturday|sunday)\))?|(monday|tuesday|wednesday|thursday|friday|saturday|sunday))[^\n.!?]{0,30}?\b(?:at\s*)?(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))\b/i,
+    /\b(?:(today|tonight|tomorrow)(?:\s*\((monday|tuesday|wednesday|thursday|friday|saturday|sunday)\))?|(monday|tuesday|wednesday|thursday|friday|saturday|sunday))[^\n.!?]{0,30}?\b(?:at\s*)?(\d{1,2}(?::\d{2})?\s*(?:a\.?m\.?|p\.?m\.?))\b/i,
   );
 
   if (!match) return null;
@@ -81,12 +81,18 @@ function extractSchedule(text, publishedAt) {
       weekday: 'long',
     }).format(publishedDate);
 
-    return `${dateLabel} · ${time}`;
+    return {
+      eventDate: publishedDate.toISOString().slice(0, 10),
+      label: `${dateLabel} · ${time}`,
+    };
   }
 
   const day = relativeDay && weekday ? `${relativeDay} (${weekday})` : relativeDay || weekday;
 
-  return `${day.charAt(0).toUpperCase()}${day.slice(1)} · ${time}`;
+  return {
+    eventDate: null,
+    label: `${day.charAt(0).toUpperCase()}${day.slice(1)} · ${time}`,
+  };
 }
 
 function extractVenue(text, locationUrl) {
@@ -126,12 +132,13 @@ function parsePost(segment) {
   const score = (locationUrl ? 8 : 0) + (schedule ? 4 : 0) + (meetingLanguage ? 3 : 0);
 
   return {
+    eventDate: schedule?.eventDate ?? null,
     messageId,
     message: text,
     locationUrl,
     postUrl: `https://t.me/${CHANNEL}/${messageId}`,
     publishedAt,
-    schedule,
+    schedule: schedule?.label ?? null,
     score,
     venue: extractVenue(text, locationUrl),
   };
@@ -156,6 +163,7 @@ function selectAnnouncement(html) {
 
   return {
     channel: CHANNEL,
+    eventDate: announcement.eventDate,
     locationUrl: announcement.locationUrl,
     message: messageWithoutUrls,
     messageId: announcement.messageId,

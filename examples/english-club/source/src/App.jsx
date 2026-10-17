@@ -8,8 +8,11 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
 import TopicsSection from './components/TopicsSection';
+import useAnnouncement from './hooks/useAnnouncement';
 
 export default function App() {
+  const announcementState = useAnnouncement();
+
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const elements = document.querySelectorAll('.reveal');
@@ -36,10 +39,10 @@ export default function App() {
       <a href="#main-content" className="skip-link">Skip to content</a>
       <Header />
       <main id="main-content">
-        <Hero />
+        <Hero {...announcementState} />
         <FeatureGrid />
         <AboutSection />
-        <EventsSection />
+        <EventsSection announcement={announcementState.announcement} />
         <TopicsSection />
         <HowItWorks />
         <CommunityCta />

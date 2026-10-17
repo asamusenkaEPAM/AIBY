@@ -1,39 +1,7 @@
-import { useEffect, useState } from 'react';
 import { ArrowUpRight, CalendarDays, Clock3, MapPin, MessagesSquare } from 'lucide-react';
+import { fallbackAnnouncement } from '../hooks/useAnnouncement';
 
-const telegramChannel = 'https://t.me/EnglishSpeakingClubBudva';
-const fallbackAnnouncement = {
-  message: 'Come for a drink, take a seat, and join whatever conversation feels right. The exact place is posted in Telegram each week.',
-  postUrl: telegramChannel,
-  schedule: 'Wednesday · 19:00',
-  venue: 'Budva · venue in Telegram',
-};
-
-export default function EventsSection() {
-  const [announcement, setAnnouncement] = useState(fallbackAnnouncement);
-
-  useEffect(() => {
-    let active = true;
-
-    fetch('./data/latest-event.json', { cache: 'no-store' })
-      .then((response) => {
-        if (!response.ok) throw new Error('Latest event is unavailable');
-        return response.json();
-      })
-      .then((latestEvent) => {
-        if (active && latestEvent?.message && latestEvent?.postUrl) {
-          setAnnouncement({ ...fallbackAnnouncement, ...latestEvent });
-        }
-      })
-      .catch(() => {
-        // Keep the useful weekly fallback when Telegram is temporarily unavailable.
-      });
-
-    return () => {
-      active = false;
-    };
-  }, []);
-
+export default function EventsSection({ announcement }) {
   const details = [
     [Clock3, 'Announced for', announcement.schedule || fallbackAnnouncement.schedule],
     [MapPin, 'Where', announcement.venue || fallbackAnnouncement.venue],

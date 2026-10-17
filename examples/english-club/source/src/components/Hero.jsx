@@ -1,3 +1,6 @@
+import { ArrowUpRight, CalendarDays, MapPin } from 'lucide-react';
+import { telegramChannel } from '../hooks/useAnnouncement';
+
 function ConversationDoodle() {
   return (
     <svg className="absolute -right-2 -top-5 hidden h-20 w-20 text-terracotta md:block lg:-right-8" viewBox="0 0 88 88" fill="none" aria-hidden="true">
@@ -7,7 +10,7 @@ function ConversationDoodle() {
   );
 }
 
-export default function Hero() {
+export default function Hero({ announcement, isUpcoming, loading }) {
   return (
     <section id="home" className="page-shell grid items-center gap-10 pb-5 pt-10 lg:min-h-[450px] lg:grid-cols-[0.82fr_1.18fr] lg:gap-0 lg:py-6">
       <div className="reveal relative z-10 lg:pl-3 lg:pr-10">
@@ -31,7 +34,7 @@ export default function Hero() {
 
       <div className="reveal relative" style={{ transitionDelay: '100ms' }}>
         <div className="absolute -left-6 -top-6 size-24 rounded-full bg-terracotta/25 blur-2xl" aria-hidden="true" />
-        <div className="hero-image-frame relative h-[410px] overflow-hidden shadow-lift sm:h-[500px] lg:h-[420px]">
+        <div className="hero-image-frame relative h-[470px] overflow-hidden shadow-lift sm:h-[520px] lg:h-[420px]">
           <img
             src="./images/budva-old-town-hero.webp"
             alt="Budva Old Town with its stone walls, terracotta roofs, church tower, and the Adriatic Sea"
@@ -40,6 +43,37 @@ export default function Hero() {
             height="1000"
             fetchPriority="high"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy/35 via-transparent to-transparent" aria-hidden="true" />
+          <aside className="hero-event-card absolute inset-x-4 bottom-4 z-10 rounded-[26px] border border-white/20 bg-navy/90 p-5 text-cream shadow-2xl backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-6 lg:left-auto lg:w-[430px]" aria-label="Next English club meetup">
+            <div className="hero-event-step flex items-center justify-between gap-4">
+              <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-cream/80">
+                <span className="size-2 rounded-full bg-terracotta" aria-hidden="true" />
+                Next meetup
+              </span>
+              <CalendarDays className="size-5 text-terracotta" strokeWidth={1.7} aria-hidden="true" />
+            </div>
+
+            {loading ? (
+              <p className="hero-event-step mt-5 font-display text-2xl leading-tight">Checking the latest update…</p>
+            ) : isUpcoming ? (
+              <>
+                <p className="hero-event-step mt-5 text-xs font-bold uppercase tracking-[0.15em] text-terracotta">{announcement.schedule}</p>
+                <h2 className="hero-event-step mt-2 font-display text-[2rem] leading-[1.05] tracking-[-0.025em]">{announcement.venue || 'Budva'}</h2>
+                <div className="hero-event-step mt-5 flex flex-wrap gap-2.5">
+                  {announcement.locationUrl && (
+                    <a className="inline-flex min-h-11 items-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" href={announcement.locationUrl} target="_blank" rel="noreferrer"><MapPin className="size-4" aria-hidden="true" />Open location</a>
+                  )}
+                  <a className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold text-cream transition hover:-translate-y-0.5 hover:bg-white/10" href={announcement.postUrl} target="_blank" rel="noreferrer">Telegram <ArrowUpRight className="size-4" /></a>
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 className="hero-event-step mt-5 max-w-sm font-display text-[1.85rem] leading-[1.08] tracking-[-0.025em]">New meetup details coming soon</h2>
+                <p className="hero-event-step mt-2 max-w-sm text-sm leading-relaxed text-cream/70">The next time and location will appear here automatically.</p>
+                <a className="hero-event-step mt-5 inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" href={telegramChannel} target="_blank" rel="noreferrer">Check Telegram <ArrowUpRight className="size-4" /></a>
+              </>
+            )}
+          </aside>
         </div>
       </div>
     </section>
