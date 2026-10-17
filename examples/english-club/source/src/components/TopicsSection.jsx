@@ -20,6 +20,8 @@ function savedTopicIndex() {
 export default function TopicsSection() {
   const [currentIndex, setCurrentIndex] = useState(savedTopicIndex);
   const [direction, setDirection] = useState('next');
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isTouching, setIsTouching] = useState(false);
   const touchStart = useRef(null);
   const topic = conversationTopics[currentIndex];
 
@@ -64,6 +66,14 @@ export default function TopicsSection() {
 
     const touch = event.touches[0];
     touchStart.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
+    setDragOffset(0);
+    setIsTouching(Boolean(touch));
+  };
+
+  const resetTouchFeedback = () => {
+    touchStart.current = null;
+    setDragOffset(0);
+    setIsTouching(false);
   };
 
   const handleTouchMove = (event) => {
@@ -74,8 +84,12 @@ export default function TopicsSection() {
     const distanceY = touch.clientY - touchStart.current.y;
 
     if (Math.abs(distanceY) > 12 && Math.abs(distanceY) > Math.abs(distanceX)) {
-      touchStart.current = null;
+      resetTouchFeedback();
+      return;
     }
+
+    const softenedOffset = Math.sign(distanceX) * Math.min(18, Math.abs(distanceX) * 0.18);
+    setDragOffset(softenedOffset);
   };
 
   const handleTouchEnd = (event) => {
@@ -84,7 +98,7 @@ export default function TopicsSection() {
     const touch = event.changedTouches[0];
     const distanceX = (touch?.clientX ?? touchStart.current.x) - touchStart.current.x;
     const distanceY = (touch?.clientY ?? touchStart.current.y) - touchStart.current.y;
-    touchStart.current = null;
+    resetTouchFeedback();
 
     const isDeliberateHorizontalSwipe = Math.abs(distanceX) >= 90
       && Math.abs(distanceX) > Math.abs(distanceY) * 1.5;
@@ -116,10 +130,11 @@ export default function TopicsSection() {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          onTouchCancel={() => { touchStart.current = null; }}
+          onTouchCancel={resetTouchFeedback}
         >
           <article
-            className="topic-card relative overflow-hidden rounded-[34px] bg-ocean p-6 text-cream shadow-lift sm:p-9 lg:p-12"
+            className={`topic-card ${isTouching ? 'topic-card-touching' : ''} relative overflow-hidden rounded-[34px] bg-ocean p-6 text-cream shadow-lift sm:p-9 lg:p-12`}
+            style={{ '--topic-drag-x': `${dragOffset}px` }}
           >
             <div className="absolute -right-16 -top-20 size-64 rounded-full border border-white/10" aria-hidden="true" />
             <div className="absolute -bottom-36 -left-20 size-72 rounded-full bg-terracotta/10 blur-2xl" aria-hidden="true" />
