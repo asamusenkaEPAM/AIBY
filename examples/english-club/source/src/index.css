@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #FAF3EC;
+  --color-peach: #F5E8DC;
+  --color-navy: #243849;
+  --color-terracotta: #E8AA68;
+  --color-ocean: #385775;
+  --color-cream: #FFF9F4;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --shadow-soft: 0 20px 55px rgba(36, 56, 73, 0.08);
+  --shadow-lift: 0 24px 70px rgba(36, 56, 73, 0.14);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply m-0 bg-ivory font-body text-navy antialiased; }
+  a { @apply no-underline; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  ::selection { @apply bg-terracotta/40 text-navy; }
+  :focus-visible { @apply outline-none ring-2 ring-ocean ring-offset-4 ring-offset-ivory; }
+}
+
+@layer components {
+  .page-shell {
+    width: min(1440px, calc(100% - 2rem));
+    margin-inline: auto;
+  }
+  .nav-link { @apply relative py-2 text-sm font-semibold text-navy/65 transition-colors hover:text-navy; }
+  .nav-link::after { content: ''; @apply absolute inset-x-1 -bottom-0.5 h-px origin-left scale-x-0 bg-terracotta transition-transform; }
+  .nav-link:hover::after { @apply scale-x-100; }
+  .button-primary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ocean px-6 text-sm font-bold text-cream shadow-sm transition hover:-translate-y-0.5 hover:bg-navy hover:shadow-soft; }
+  .button-secondary { @apply inline-flex min-h-12 items-center justify-center rounded-full border border-navy/25 px-6 text-sm font-bold transition hover:border-navy hover:bg-cream; }
+  .eyebrow { @apply flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-terracotta; }
+  .eyebrow::before { content: ''; @apply h-px w-8 bg-terracotta; }
+  .section-title { @apply font-display text-[clamp(2.75rem,5.2vw,5.8rem)] font-medium leading-[0.98] tracking-[-0.045em]; }
+  .feature-card { @apply rounded-2xl border border-navy/10 bg-cream p-6 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-terracotta/50 hover:shadow-lift sm:p-7; }
+  .text-link { @apply inline-flex items-center gap-2 text-sm font-bold text-ocean underline decoration-terracotta/60 underline-offset-4 transition hover:text-navy; }
+  .hero-image-frame { border-radius: 54px 18px 54px 18px; }
+  .skip-link { @apply fixed left-4 top-[-80px] z-[100] rounded-full bg-navy px-5 py-3 text-sm font-bold text-cream transition-all focus:top-4; }
+}
+
+@media (min-width: 640px) {
+  .page-shell { width: min(1440px, calc(100% - 3rem)); }
+}
+
+@media (min-width: 1024px) {
+  .page-shell { width: min(1440px, calc(100% - 5rem)); }
+}
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 650ms ease, transform 650ms ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
