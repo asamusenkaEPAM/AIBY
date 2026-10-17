@@ -1,21 +1,20 @@
 import { CalendarDays, MessagesSquare, TrendingUp, UsersRound } from 'lucide-react';
 
 const features = [
-  [UsersRound, 'Friendly Community', 'Meet locals, newcomers, and travellers.'],
-  [MessagesSquare, 'Interesting Topics', 'Bring an idea or start with a conversation card.'],
-  [CalendarDays, 'Online & Offline', 'Follow updates online, then meet face to face.'],
-  [TrendingUp, 'All Levels Welcome', 'Listen, try, make mistakes, and grow naturally.'],
+  [UsersRound, 'Friendly Community'],
+  [MessagesSquare, 'Interesting Topics'],
+  [CalendarDays, 'Online & Offline'],
+  [TrendingUp, 'All Levels Welcome'],
 ];
 
 export default function FeatureGrid() {
   return (
-    <section className="page-shell relative z-20 pb-24 pt-8 lg:-mt-3" aria-label="Club highlights">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {features.map(([Icon, title, description], index) => (
-          <article key={title} className="reveal feature-card" style={{ transitionDelay: `${index * 70}ms` }}>
-            <span className="grid size-12 place-items-center rounded-2xl border border-navy/20 text-ocean"><Icon className="size-5" strokeWidth={1.6} aria-hidden="true" /></span>
-            <h2 className="mt-6 font-display text-[1.4rem] leading-tight">{title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-navy/60">{description}</p>
+    <section className="page-shell relative z-20 pb-20 pt-4" aria-label="Club highlights">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+        {features.map(([Icon, title], index) => (
+          <article key={title} className="reveal feature-card flex min-h-[140px] flex-col items-center justify-center text-center sm:min-h-[150px]" style={{ transitionDelay: `${index * 70}ms` }}>
+            <span className="text-ocean"><Icon className="size-8" strokeWidth={1.45} aria-hidden="true" /></span>
+            <h2 className="mt-5 text-sm font-semibold leading-tight sm:text-base">{title}</h2>
           </article>
         ))}
       </div>

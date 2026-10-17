@@ -32,7 +32,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="overflow-hidden bg-ivory text-navy">
+    <div className="overflow-x-clip bg-ivory text-navy">
       <a href="#main-content" className="skip-link">Skip to content</a>
       <Header />
       <main id="main-content">

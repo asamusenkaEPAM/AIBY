@@ -14,7 +14,7 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   body { @apply m-0 bg-ivory font-body text-navy antialiased; }
   a { @apply no-underline; }
   button, a { -webkit-tap-highlight-color: transparent; }
@@ -35,9 +35,10 @@
   .eyebrow { @apply flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-terracotta; }
   .eyebrow::before { content: ''; @apply h-px w-8 bg-terracotta; }
   .section-title { @apply font-display text-[clamp(2.75rem,5.2vw,5.8rem)] font-medium leading-[0.98] tracking-[-0.045em]; }
-  .feature-card { @apply rounded-2xl border border-navy/10 bg-cream p-6 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-terracotta/50 hover:shadow-lift sm:p-7; }
+  .feature-card { @apply rounded-xl border border-navy/8 bg-cream p-5 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-terracotta/50 hover:shadow-lift sm:p-6; }
   .text-link { @apply inline-flex items-center gap-2 text-sm font-bold text-ocean underline decoration-terracotta/60 underline-offset-4 transition hover:text-navy; }
-  .hero-image-frame { border-radius: 54px 18px 54px 18px; }
+  .hero-title { font-size: clamp(2.55rem, 10.8vw, 3.7rem); }
+  .hero-image-frame { border-radius: 44px 14px 44px 14px; }
   .skip-link { @apply fixed left-4 top-[-80px] z-[100] rounded-full bg-navy px-5 py-3 text-sm font-bold text-cream transition-all focus:top-4; }
 }
 
@@ -47,6 +48,7 @@
 
 @media (min-width: 1024px) {
   .page-shell { width: min(1440px, calc(100% - 5rem)); }
+  .hero-title { font-size: clamp(3.2rem, 4.45vw, 4.7rem); }
 }
 
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity 650ms ease, transform 650ms ease; }
