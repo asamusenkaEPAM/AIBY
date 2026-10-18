@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Menu, MessageCircle, X } from 'lucide-react';
 
 const navigation = [
@@ -11,12 +11,29 @@ const navigation = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const menuButton = useRef(null);
+  const navigationTimer = useRef(null);
 
   useEffect(() => {
     const closeOnEscape = (event) => event.key === 'Escape' && setOpen(false);
     window.addEventListener('keydown', closeOnEscape);
-    return () => window.removeEventListener('keydown', closeOnEscape);
+    return () => {
+      window.removeEventListener('keydown', closeOnEscape);
+      window.clearTimeout(navigationTimer.current);
+    };
   }, []);
+
+  const followMobileLink = (event, href) => {
+    event.preventDefault();
+    setOpen(false);
+    menuButton.current?.focus({ preventScroll: true });
+    window.clearTimeout(navigationTimer.current);
+    navigationTimer.current = window.setTimeout(() => {
+      const target = document.querySelector(href);
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.pushState(null, '', href);
+    }, 320);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-navy/10 bg-ivory/95 backdrop-blur-lg">
@@ -41,6 +58,7 @@ export default function Header() {
         </a>
 
         <button
+          ref={menuButton}
           className="grid size-12 place-items-center rounded-full border border-navy/20 bg-cream lg:hidden"
           type="button"
           aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
@@ -61,7 +79,7 @@ export default function Header() {
       >
         <div className="rounded-3xl border border-navy/10 bg-cream p-4 shadow-soft">
           {navigation.map(([label, href]) => (
-            <a key={href} href={href} className="block rounded-2xl px-4 py-3.5 text-sm font-semibold hover:bg-peach" onClick={() => setOpen(false)}>{label}</a>
+            <a key={href} href={href} className="block rounded-2xl px-4 py-3.5 text-sm font-semibold hover:bg-peach" onClick={(event) => followMobileLink(event, href)}>{label}</a>
           ))}
           <a className="button-primary mt-3 flex w-full" href="https://t.me/EnglishSpeakingClubBudva" target="_blank" rel="noreferrer">Join Us</a>
         </div>

@@ -41,7 +41,7 @@ export default function App() {
         <Hero {...announcementState} />
         <FeatureGrid />
         <AboutSection />
-        <EventsSection announcement={announcementState.announcement} />
+        <EventsSection {...announcementState} />
         <TopicsSection />
         <HowItWorks />
       </main>
