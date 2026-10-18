@@ -1,14 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowLeft, ArrowRight, ListFilter, Maximize2, RefreshCw, Shuffle, Sparkles, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ListFilter, Maximize2, Shuffle, Sparkles, X } from 'lucide-react';
 import conversationTopics from '../data/conversationTopics';
 
 const STORAGE_KEY = 'english-club-topic-index';
 const topicCategories = [...new Set(conversationTopics.map((topic) => topic.category))];
-
-function randomPromptIndex(topicIndex) {
-  return Math.floor(Math.random() * conversationTopics[topicIndex].prompts.length);
-}
 
 function savedTopicIndex() {
   if (typeof window === 'undefined') return 0;
@@ -30,7 +26,6 @@ export default function TopicsSection({ copy }) {
   const [isTouching, setIsTouching] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [activePromptIndex, setActivePromptIndex] = useState(() => randomPromptIndex(savedTopicIndex()));
   const touchStart = useRef(null);
   const fullscreenButton = useRef(null);
   const closeButton = useRef(null);
@@ -87,7 +82,6 @@ export default function TopicsSection({ copy }) {
   const showTopic = (topicIndex, nextDirection) => {
     setDirection(nextDirection);
     setCurrentIndex(topicIndex);
-    setActivePromptIndex(randomPromptIndex(topicIndex));
   };
 
   const move = (step) => {
@@ -117,16 +111,6 @@ export default function TopicsSection({ copy }) {
 
     setSelectedCategory(category);
     showTopic(nextIndex, 'random');
-  };
-
-  const chooseAnotherQuestion = () => {
-    if (topic.prompts.length < 2) return;
-
-    let nextPromptIndex = activePromptIndex;
-    while (nextPromptIndex === activePromptIndex) {
-      nextPromptIndex = Math.floor(Math.random() * topic.prompts.length);
-    }
-    setActivePromptIndex(nextPromptIndex);
   };
 
   const handleKeyDown = (event) => {
@@ -223,7 +207,7 @@ export default function TopicsSection({ copy }) {
             <span className="text-sm font-bold tabular-nums text-cream/65">
               {String(currentPosition + 1).padStart(2, '0')} / {availableIndices.length}
             </span>
-            {fullscreen && (
+            {fullscreen ? (
               <button
                 ref={closeButton}
                 className="grid size-11 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 transition hover:bg-white/15"
@@ -232,6 +216,17 @@ export default function TopicsSection({ copy }) {
                 aria-label={copy.topics.closeFullscreen}
               >
                 <X className="size-5" aria-hidden="true" />
+              </button>
+            ) : (
+              <button
+                ref={fullscreenButton}
+                className="grid size-10 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 transition hover:bg-white/15 md:hidden"
+                type="button"
+                onClick={openFullscreen}
+                aria-label={copy.topics.fullscreen}
+                aria-haspopup="dialog"
+              >
+                <Maximize2 className="size-4" aria-hidden="true" />
               </button>
             )}
           </div>
@@ -242,24 +237,17 @@ export default function TopicsSection({ copy }) {
             {topic.title}
           </h3>
           <ol className={`grid md:grid-cols-3 ${fullscreen ? 'mt-7 gap-2.5' : 'mt-10 gap-3'}`}>
-            {topic.prompts.map((prompt, index) => {
-              const isActivePrompt = index === activePromptIndex;
-              return (
+            {topic.prompts.map((prompt, index) => (
               <li
                 key={prompt}
-                aria-current={isActivePrompt ? 'true' : undefined}
-                className={`flex gap-4 rounded-[22px] border backdrop-blur-sm transition-[background-color,border-color,box-shadow] duration-200 ${fullscreen ? 'min-h-0 p-4' : 'min-h-28 p-5 sm:p-6'} ${isActivePrompt ? 'border-terracotta/70 bg-white/15 shadow-[0_14px_38px_rgba(0,0,0,0.12)]' : 'border-white/15 bg-white/8'}`}
+                className={`flex gap-4 rounded-[22px] border border-white/15 bg-white/8 backdrop-blur-sm ${fullscreen ? 'min-h-0 p-4' : 'min-h-28 p-5 sm:p-6'}`}
               >
-                <span className={`grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold transition-colors ${isActivePrompt ? 'bg-terracotta text-navy' : 'bg-white/12 text-cream/70'}`}>
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-terracotta text-xs font-bold text-navy">
                   {index + 1}
                 </span>
-                <div className="min-w-0">
-                  <p className="pt-1 text-sm font-medium leading-relaxed text-cream/85 sm:text-base">{prompt}</p>
-                  {isActivePrompt && <span lang={copy.htmlLang} className="mt-3 inline-flex rounded-full bg-terracotta/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-terracotta">{copy.topics.startHere}</span>}
-                </div>
+                <p className="pt-1 text-sm font-medium leading-relaxed text-cream/85 sm:text-base">{prompt}</p>
               </li>
-              );
-            })}
+            ))}
           </ol>
         </div>
       </div>
@@ -272,7 +260,7 @@ export default function TopicsSection({ copy }) {
       </div>
 
       {fullscreen ? (
-        <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
+        <div className="relative mt-6 flex items-center justify-center gap-3">
           <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-5" aria-hidden="true" />
           </button>
@@ -283,30 +271,22 @@ export default function TopicsSection({ copy }) {
           <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
             <ArrowRight className="size-5" aria-hidden="true" />
           </button>
-          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:bg-white/10" type="button" onClick={chooseAnotherQuestion}>
-            <RefreshCw className="size-4 text-terracotta" aria-hidden="true" />
-            {copy.topics.anotherQuestion}
-          </button>
         </div>
       ) : (
-        <div className="relative mt-7 grid grid-cols-2 items-center gap-3 sm:flex sm:flex-wrap">
-          <button className="order-1 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10 sm:order-none sm:px-5" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
+        <div className="relative mt-7 flex flex-wrap items-center gap-3">
+          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-4" aria-hidden="true" />
             {copy.topics.previous}
           </button>
-          <button className="order-3 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cream px-4 text-sm font-bold text-navy transition hover:-translate-y-0.5 sm:order-none sm:px-5" type="button" onClick={surpriseMe}>
+          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" type="button" onClick={surpriseMe}>
             <Shuffle className="size-4 text-terracotta" aria-hidden="true" />
             {copy.topics.surprise}
           </button>
-          <button className="order-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10 sm:order-none sm:px-5" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
+          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
             {copy.topics.next}
             <ArrowRight className="size-4" aria-hidden="true" />
           </button>
-          <button className="order-4 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10 sm:order-none sm:px-5" type="button" onClick={chooseAnotherQuestion}>
-            <RefreshCw className="size-4 text-terracotta" aria-hidden="true" />
-            {copy.topics.anotherQuestion}
-          </button>
-          <span className="order-5 ml-auto hidden text-xs font-medium text-cream/50 md:block sm:order-none">{copy.topics.hint}</span>
+          <span className="ml-auto hidden text-xs font-medium text-cream/50 md:block">{copy.topics.hint}</span>
         </div>
       )}
     </article>
@@ -328,16 +308,6 @@ export default function TopicsSection({ copy }) {
                 {topicCategories.map((category) => <option key={category} value={category} lang="en">{category}</option>)}
               </select>
             </label>
-            <button
-              ref={fullscreenButton}
-              className="button-primary inline-flex min-h-12 items-center justify-center gap-2 px-5 md:hidden"
-              type="button"
-              onClick={openFullscreen}
-              aria-haspopup="dialog"
-            >
-              <Maximize2 className="size-4" aria-hidden="true" />
-              {copy.topics.fullscreen}
-            </button>
           </div>
 
           <div
