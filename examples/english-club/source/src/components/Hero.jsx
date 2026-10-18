@@ -16,8 +16,8 @@ export default function Hero({ announcement, isUpcoming, loading }) {
       <div className="reveal relative z-10 lg:pl-3 lg:pr-10">
         <div className="relative w-fit">
           <h1 className="hero-title font-display font-medium leading-[0.96] tracking-[-0.048em] text-navy">
-            <span className="block">Practice English in Budva.</span>
-            <span className="block">Meet people from Montenegro and around the world.</span>
+            <span className="block">Speak English. Meet People.</span>
+            <span className="block">Feel at Home in Budva.</span>
           </h1>
           <ConversationDoodle />
         </div>
