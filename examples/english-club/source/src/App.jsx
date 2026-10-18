@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import AboutSection from './components/AboutSection';
-import CommunityCta from './components/CommunityCta';
 import EventsSection from './components/EventsSection';
 import FeatureGrid from './components/FeatureGrid';
 import Footer from './components/Footer';
@@ -45,7 +44,6 @@ export default function App() {
         <EventsSection announcement={announcementState.announcement} />
         <TopicsSection />
         <HowItWorks />
-        <CommunityCta />
       </main>
       <Footer />
     </div>

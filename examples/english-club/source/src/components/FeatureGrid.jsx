@@ -3,7 +3,7 @@ import { CalendarDays, MessagesSquare, TrendingUp, UsersRound } from 'lucide-rea
 const features = [
   [UsersRound, 'Friendly Community'],
   [MessagesSquare, 'Interesting Topics'],
-  [CalendarDays, 'Online & Offline'],
+  [CalendarDays, 'In-Person Meetups'],
   [TrendingUp, 'All Levels Welcome'],
 ];
 
