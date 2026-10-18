@@ -1,9 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowLeft, ArrowRight, Maximize2, Shuffle, Sparkles, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ListFilter, Maximize2, RefreshCw, Shuffle, Sparkles, X } from 'lucide-react';
 import conversationTopics from '../data/conversationTopics';
 
 const STORAGE_KEY = 'english-club-topic-index';
+const topicCategories = [...new Set(conversationTopics.map((topic) => topic.category))];
+
+function randomPromptIndex(topicIndex) {
+  return Math.floor(Math.random() * conversationTopics[topicIndex].prompts.length);
+}
 
 function savedTopicIndex() {
   if (typeof window === 'undefined') return 0;
@@ -24,12 +29,19 @@ export default function TopicsSection({ copy }) {
   const [dragOffset, setDragOffset] = useState(0);
   const [isTouching, setIsTouching] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [activePromptIndex, setActivePromptIndex] = useState(() => randomPromptIndex(savedTopicIndex()));
   const touchStart = useRef(null);
   const fullscreenButton = useRef(null);
   const closeButton = useRef(null);
   const pageScrollY = useRef(0);
   const pageAnchorTop = useRef(0);
   const topic = conversationTopics[currentIndex];
+  const availableIndices = useMemo(() => conversationTopics
+    .map((item, index) => ({ item, index }))
+    .filter(({ item }) => !selectedCategory || item.category === selectedCategory)
+    .map(({ index }) => index), [selectedCategory]);
+  const currentPosition = Math.max(0, availableIndices.indexOf(currentIndex));
 
   useEffect(() => {
     try {
@@ -72,18 +84,49 @@ export default function TopicsSection({ copy }) {
     };
   }, [isFullscreen]);
 
+  const showTopic = (topicIndex, nextDirection) => {
+    setDirection(nextDirection);
+    setCurrentIndex(topicIndex);
+    setActivePromptIndex(randomPromptIndex(topicIndex));
+  };
+
   const move = (step) => {
-    setDirection(step > 0 ? 'next' : 'previous');
-    setCurrentIndex((index) => (index + step + conversationTopics.length) % conversationTopics.length);
+    const position = availableIndices.indexOf(currentIndex);
+    const startPosition = position >= 0 ? position : 0;
+    const nextPosition = (startPosition + step + availableIndices.length) % availableIndices.length;
+    showTopic(availableIndices[nextPosition], step > 0 ? 'next' : 'previous');
   };
 
   const surpriseMe = () => {
-    let nextIndex = currentIndex;
-    while (nextIndex === currentIndex) {
-      nextIndex = Math.floor(Math.random() * conversationTopics.length);
+    let nextIndex = availableIndices[0];
+    if (availableIndices.length > 1) {
+      do {
+        nextIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+      } while (nextIndex === currentIndex);
     }
-    setDirection('random');
-    setCurrentIndex(nextIndex);
+    showTopic(nextIndex, 'random');
+  };
+
+  const chooseCategory = (event) => {
+    const category = event.target.value;
+    const categoryIndices = conversationTopics
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) => !category || item.category === category)
+      .map(({ index }) => index);
+    const nextIndex = categoryIndices[Math.floor(Math.random() * categoryIndices.length)];
+
+    setSelectedCategory(category);
+    showTopic(nextIndex, 'random');
+  };
+
+  const chooseAnotherQuestion = () => {
+    if (topic.prompts.length < 2) return;
+
+    let nextPromptIndex = activePromptIndex;
+    while (nextPromptIndex === activePromptIndex) {
+      nextPromptIndex = Math.floor(Math.random() * topic.prompts.length);
+    }
+    setActivePromptIndex(nextPromptIndex);
   };
 
   const handleKeyDown = (event) => {
@@ -178,9 +221,9 @@ export default function TopicsSection({ copy }) {
           </span>
           <div className="flex items-center gap-2">
             <span className="text-sm font-bold tabular-nums text-cream/65">
-              {String(currentIndex + 1).padStart(2, '0')} / {conversationTopics.length}
+              {String(currentPosition + 1).padStart(2, '0')} / {availableIndices.length}
             </span>
-            {fullscreen ? (
+            {fullscreen && (
               <button
                 ref={closeButton}
                 className="grid size-11 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 transition hover:bg-white/15"
@@ -189,17 +232,6 @@ export default function TopicsSection({ copy }) {
                 aria-label={copy.topics.closeFullscreen}
               >
                 <X className="size-5" aria-hidden="true" />
-              </button>
-            ) : (
-              <button
-                ref={fullscreenButton}
-                className="grid size-10 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 transition hover:bg-white/15 md:hidden"
-                type="button"
-                onClick={openFullscreen}
-                aria-label={copy.topics.fullscreen}
-                aria-haspopup="dialog"
-              >
-                <Maximize2 className="size-4" aria-hidden="true" />
               </button>
             )}
           </div>
@@ -210,14 +242,24 @@ export default function TopicsSection({ copy }) {
             {topic.title}
           </h3>
           <ol className={`grid md:grid-cols-3 ${fullscreen ? 'mt-7 gap-2.5' : 'mt-10 gap-3'}`}>
-            {topic.prompts.map((prompt, index) => (
-              <li key={prompt} className={`flex gap-4 rounded-[22px] border border-white/15 bg-white/8 backdrop-blur-sm ${fullscreen ? 'min-h-0 p-4' : 'min-h-28 p-5 sm:p-6'}`}>
-                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-terracotta text-xs font-bold text-navy">
+            {topic.prompts.map((prompt, index) => {
+              const isActivePrompt = index === activePromptIndex;
+              return (
+              <li
+                key={prompt}
+                aria-current={isActivePrompt ? 'true' : undefined}
+                className={`flex gap-4 rounded-[22px] border backdrop-blur-sm transition-[background-color,border-color,box-shadow] duration-200 ${fullscreen ? 'min-h-0 p-4' : 'min-h-28 p-5 sm:p-6'} ${isActivePrompt ? 'border-terracotta/70 bg-white/15 shadow-[0_14px_38px_rgba(0,0,0,0.12)]' : 'border-white/15 bg-white/8'}`}
+              >
+                <span className={`grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold transition-colors ${isActivePrompt ? 'bg-terracotta text-navy' : 'bg-white/12 text-cream/70'}`}>
                   {index + 1}
                 </span>
-                <p className="pt-1 text-sm font-medium leading-relaxed text-cream/85 sm:text-base">{prompt}</p>
+                <div className="min-w-0">
+                  <p className="pt-1 text-sm font-medium leading-relaxed text-cream/85 sm:text-base">{prompt}</p>
+                  {isActivePrompt && <span lang={copy.htmlLang} className="mt-3 inline-flex rounded-full bg-terracotta/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-terracotta">{copy.topics.startHere}</span>}
+                </div>
               </li>
-            ))}
+              );
+            })}
           </ol>
         </div>
       </div>
@@ -225,12 +267,12 @@ export default function TopicsSection({ copy }) {
       <div className={`relative h-1.5 overflow-hidden rounded-full bg-white/10 ${fullscreen ? 'mt-6' : 'mt-8'}`} aria-hidden="true">
         <div
           className="h-full rounded-full bg-terracotta transition-[width] duration-500"
-          style={{ width: `${((currentIndex + 1) / conversationTopics.length) * 100}%` }}
+          style={{ width: `${((currentPosition + 1) / availableIndices.length) * 100}%` }}
         />
       </div>
 
       {fullscreen ? (
-        <div className="relative mt-6 flex items-center justify-center gap-3">
+        <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
           <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-5" aria-hidden="true" />
           </button>
@@ -241,22 +283,30 @@ export default function TopicsSection({ copy }) {
           <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
             <ArrowRight className="size-5" aria-hidden="true" />
           </button>
+          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:bg-white/10" type="button" onClick={chooseAnotherQuestion}>
+            <RefreshCw className="size-4 text-terracotta" aria-hidden="true" />
+            {copy.topics.anotherQuestion}
+          </button>
         </div>
       ) : (
-        <div className="relative mt-7 flex flex-wrap items-center gap-3">
-          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
+        <div className="relative mt-7 grid grid-cols-2 items-center gap-3 sm:flex sm:flex-wrap">
+          <button className="order-1 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10 sm:order-none sm:px-5" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-4" aria-hidden="true" />
             {copy.topics.previous}
           </button>
-          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" type="button" onClick={surpriseMe}>
+          <button className="order-3 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cream px-4 text-sm font-bold text-navy transition hover:-translate-y-0.5 sm:order-none sm:px-5" type="button" onClick={surpriseMe}>
             <Shuffle className="size-4 text-terracotta" aria-hidden="true" />
             {copy.topics.surprise}
           </button>
-          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
+          <button className="order-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10 sm:order-none sm:px-5" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
             {copy.topics.next}
             <ArrowRight className="size-4" aria-hidden="true" />
           </button>
-          <span className="ml-auto hidden text-xs font-medium text-cream/50 md:block">{copy.topics.hint}</span>
+          <button className="order-4 inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-4 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10 sm:order-none sm:px-5" type="button" onClick={chooseAnotherQuestion}>
+            <RefreshCw className="size-4 text-terracotta" aria-hidden="true" />
+            {copy.topics.anotherQuestion}
+          </button>
+          <span className="order-5 ml-auto hidden text-xs font-medium text-cream/50 md:block sm:order-none">{copy.topics.hint}</span>
         </div>
       )}
     </article>
@@ -265,16 +315,36 @@ export default function TopicsSection({ copy }) {
   return (
     <>
       <section id="topics" className="bg-cream py-16 lg:py-20">
-        <div className="page-shell">
+        <div className="page-shell" aria-hidden={isFullscreen || undefined} inert={isFullscreen ? '' : undefined}>
           <h2 className="reveal eyebrow">{copy.topics.label}</h2>
+          <p className="reveal mt-4 max-w-2xl text-base leading-relaxed text-navy/65 sm:text-lg">{copy.topics.usage}</p>
+
+          <div className="reveal mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <label className="inline-flex min-h-12 items-center gap-2 rounded-full border border-navy/15 bg-ivory px-4 text-sm font-bold text-navy shadow-soft">
+              <ListFilter className="size-4 text-terracotta" aria-hidden="true" />
+              <span className="sr-only">{copy.topics.chooseCategory}</span>
+              <select className="min-w-0 cursor-pointer bg-transparent pr-2 outline-none" value={selectedCategory} onChange={chooseCategory} aria-label={copy.topics.chooseCategory}>
+                <option value="">{copy.topics.allCategories}</option>
+                {topicCategories.map((category) => <option key={category} value={category} lang="en">{category}</option>)}
+              </select>
+            </label>
+            <button
+              ref={fullscreenButton}
+              className="button-primary inline-flex min-h-12 items-center justify-center gap-2 px-5 md:hidden"
+              type="button"
+              onClick={openFullscreen}
+              aria-haspopup="dialog"
+            >
+              <Maximize2 className="size-4" aria-hidden="true" />
+              {copy.topics.fullscreen}
+            </button>
+          </div>
 
           <div
-            className="reveal mt-8 outline-none"
+            className="reveal mt-6 outline-none"
             role="group"
             aria-label={copy.topics.deck}
             aria-roledescription="carousel"
-            aria-hidden={isFullscreen || undefined}
-            inert={isFullscreen ? '' : undefined}
             tabIndex="0"
             onKeyDown={handleKeyDown}
             onTouchStart={handleTouchStart}
