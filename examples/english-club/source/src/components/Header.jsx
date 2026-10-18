@@ -21,12 +21,12 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-navy/10 bg-ivory/95 backdrop-blur-lg">
       <div className="page-shell flex min-h-[76px] items-center justify-between gap-7 lg:min-h-[82px]">
-        <a href="#home" className="group flex items-center gap-3" aria-label="English Conversation Club home">
+        <a href="#home" className="group flex items-center gap-3" aria-label="Budva | English Conversation Club home">
           <span className="grid size-10 place-items-center rounded-full border border-navy/30 transition-colors group-hover:border-terracotta group-hover:text-terracotta">
             <MessageCircle aria-hidden="true" className="size-[18px]" strokeWidth={1.6} />
           </span>
           <span className="font-display text-[16px] font-semibold leading-[1.02] tracking-[-0.02em]">
-            English<br />Conversation Club
+            Budva | English{' '}<br />Conversation Club
           </span>
         </a>
 
