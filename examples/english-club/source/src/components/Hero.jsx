@@ -16,15 +16,10 @@ export default function Hero({ announcement, isUpcoming, loading }) {
       <div className="reveal relative z-10 lg:pl-3 lg:pr-10">
         <div className="relative w-fit">
           <h1 className="hero-title font-display font-medium leading-[0.96] tracking-[-0.048em] text-navy">
-            <span className="block whitespace-nowrap">Real People</span>
-            <span className="block whitespace-nowrap">Real Conversations</span>
-            <span className="block whitespace-nowrap">A Brighter You</span>
+            Practice English in Budva. Meet people from Montenegro and around the world.
           </h1>
           <ConversationDoodle />
         </div>
-        <p className="mt-7 max-w-[420px] text-lg leading-relaxed text-navy/68">
-          Practice English in Budva. Meet people from Montenegro and around the world.
-        </p>
         <div className="mt-7 flex flex-wrap items-center gap-4">
           <a className="button-primary" href="https://t.me/EnglishSpeakingClubBudva" target="_blank" rel="noreferrer">
             Join the Club
