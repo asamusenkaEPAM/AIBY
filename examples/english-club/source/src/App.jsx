@@ -47,10 +47,10 @@ export default function App() {
       <main id="main-content">
         <Hero {...announcementState} copy={copy} />
         <FeatureGrid copy={copy} />
-        <AboutSection copy={copy} />
-        <EventsSection {...announcementState} copy={copy} />
         <TopicsSection copy={copy} />
+        <EventsSection {...announcementState} copy={copy} />
         <HowItWorks copy={copy} />
+        <AboutSection copy={copy} />
       </main>
       <Footer copy={copy} />
     </div>

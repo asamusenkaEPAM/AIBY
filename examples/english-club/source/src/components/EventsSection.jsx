@@ -14,7 +14,7 @@ export default function EventsSection({ announcement, isUpcoming, loading, copy 
       {loading ? (
         <article className="reveal mt-8 rounded-[32px] bg-ocean p-7 text-cream shadow-soft sm:p-10 lg:p-12" aria-live="polite">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em]"><span className="size-2 animate-pulse rounded-full bg-terracotta" aria-hidden="true" />{copy.events.checking}</span>
-          <p className="mt-8 font-display text-4xl leading-tight sm:text-5xl">{copy.events.looking}</p>
+          <p className="mt-8 font-display text-3xl leading-tight sm:text-4xl">{copy.events.looking}</p>
         </article>
       ) : !isUpcoming ? (
         <article className="reveal relative mt-8 overflow-hidden rounded-[32px] bg-ocean p-7 text-cream shadow-soft sm:p-10 lg:p-12">
@@ -23,7 +23,7 @@ export default function EventsSection({ announcement, isUpcoming, loading, copy 
             <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em]"><span className="size-2 rounded-full bg-terracotta" aria-hidden="true" />{copy.events.updates}</span>
             <CalendarDays className="size-7 text-terracotta" strokeWidth={1.5} aria-hidden="true" />
           </div>
-          <h3 className="relative mt-10 max-w-2xl font-display text-4xl leading-tight sm:text-5xl">{copy.events.soon}</h3>
+          <h3 className="relative mt-10 max-w-2xl font-display text-3xl leading-tight sm:text-4xl">{copy.events.soon}</h3>
           <p className="relative mt-5 max-w-2xl text-base leading-relaxed text-cream/75">{copy.events.soonText}</p>
           <a className="relative mt-8 inline-flex min-h-12 items-center gap-2 rounded-full bg-cream px-6 text-sm font-bold text-navy transition hover:-translate-y-0.5" href={telegramChannel} target="_blank" rel="noreferrer">{copy.events.check} <ArrowUpRight className="size-4" /></a>
         </article>
@@ -32,7 +32,7 @@ export default function EventsSection({ announcement, isUpcoming, loading, copy 
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div>
               <div className="flex items-start justify-between gap-5"><span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em]"><span className="size-2 rounded-full bg-terracotta" aria-hidden="true" />{copy.events.live}</span><CalendarDays className="size-7 text-terracotta" strokeWidth={1.5} aria-hidden="true" /></div>
-              <h3 className="mt-10 max-w-xl font-display text-4xl leading-tight sm:text-5xl">{copy.events.next}</h3>
+              <h3 className="mt-10 max-w-xl font-display text-3xl leading-tight sm:text-4xl">{copy.events.next}</h3>
               <p className="mt-5 max-w-xl whitespace-pre-line text-base leading-relaxed text-cream/75">{announcement.message}</p>
             </div>
 

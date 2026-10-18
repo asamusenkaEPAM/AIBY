@@ -55,7 +55,7 @@ export default function Hero({ announcement, isUpcoming, loading, copy }) {
             ) : isUpcoming ? (
               <>
                 <p className="hero-event-step mt-5 text-xs font-bold uppercase tracking-[0.15em] text-terracotta">{announcement.schedule}</p>
-                <h2 className="hero-event-step mt-2 font-display text-[2rem] leading-[1.05] tracking-[-0.025em]">{announcement.venue || 'Budva'}</h2>
+                <h2 className="hero-event-step mt-2 font-display text-[1.75rem] leading-[1.08] tracking-[-0.025em]">{announcement.venue || 'Budva'}</h2>
                 <div className="hero-event-step mt-5 flex flex-wrap gap-2.5">
                   {announcement.locationUrl && (
                     <a className="inline-flex min-h-11 items-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" href={announcement.locationUrl} target="_blank" rel="noreferrer"><MapPin className="size-4" aria-hidden="true" />{copy.hero.openLocation}</a>
@@ -65,7 +65,7 @@ export default function Hero({ announcement, isUpcoming, loading, copy }) {
               </>
             ) : (
               <>
-                <h2 className="hero-event-step mt-5 max-w-sm font-display text-[1.85rem] leading-[1.08] tracking-[-0.025em]">{copy.hero.soon}</h2>
+                <h2 className="hero-event-step mt-5 max-w-sm font-display text-[1.6rem] leading-[1.12] tracking-[-0.02em]">{copy.hero.soon}</h2>
                 <p className="hero-event-step mt-2 max-w-sm text-sm leading-relaxed text-cream/70">{copy.hero.automatic}</p>
                 <a className="hero-event-step mt-5 inline-flex min-h-11 w-fit items-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" href={telegramChannel} target="_blank" rel="noreferrer">{copy.hero.check} <ArrowUpRight className="size-4" /></a>
               </>

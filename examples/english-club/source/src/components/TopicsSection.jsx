@@ -206,7 +206,7 @@ export default function TopicsSection({ copy }) {
         </div>
 
         <div className={`relative max-w-5xl ${fullscreen ? 'mt-8' : 'mt-10 sm:mt-14'}`}>
-          <h3 className={`font-display font-medium leading-[0.98] tracking-[-0.04em] ${fullscreen ? 'text-[clamp(2.45rem,11vw,4rem)]' : 'text-[clamp(2.5rem,6vw,5.7rem)]'}`}>
+          <h3 className={`font-display font-medium leading-[1.02] tracking-[-0.035em] ${fullscreen ? 'text-[clamp(2rem,9vw,3.25rem)]' : 'text-[clamp(2rem,3.5vw,3.6rem)]'}`}>
             {topic.title}
           </h3>
           <ol className={`grid md:grid-cols-3 ${fullscreen ? 'mt-7 gap-2.5' : 'mt-10 gap-3'}`}>
@@ -215,7 +215,7 @@ export default function TopicsSection({ copy }) {
                 <span className="grid size-8 shrink-0 place-items-center rounded-full bg-terracotta text-xs font-bold text-navy">
                   {index + 1}
                 </span>
-                <p className="pt-1 text-base font-medium leading-relaxed text-cream/85">{prompt}</p>
+                <p className="pt-1 text-sm font-medium leading-relaxed text-cream/85 sm:text-base">{prompt}</p>
               </li>
             ))}
           </ol>
@@ -264,20 +264,12 @@ export default function TopicsSection({ copy }) {
 
   return (
     <>
-      <section id="topics" className="bg-cream py-24 lg:py-32">
+      <section id="topics" className="bg-cream py-16 lg:py-20">
         <div className="page-shell">
-          <div className="reveal grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:items-end">
-            <div>
-              <p className="eyebrow">{copy.topics.label}</p>
-              <h2 className="section-title mt-6 max-w-4xl">{copy.topics.title}</h2>
-            </div>
-            <p className="max-w-xl text-lg leading-relaxed text-navy/65 lg:justify-self-end">
-              {copy.topics.text}
-            </p>
-          </div>
+          <h2 className="reveal eyebrow">{copy.topics.label}</h2>
 
           <div
-            className="reveal mt-12 outline-none"
+            className="reveal mt-8 outline-none"
             role="group"
             aria-label={copy.topics.deck}
             aria-roledescription="carousel"

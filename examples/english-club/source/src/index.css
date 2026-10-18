@@ -34,10 +34,10 @@
   .button-secondary { @apply inline-flex min-h-12 items-center justify-center rounded-full border border-navy/25 px-6 text-sm font-bold transition hover:border-navy hover:bg-cream; }
   .eyebrow { @apply flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-terracotta; }
   .eyebrow::before { content: ''; @apply h-px w-8 bg-terracotta; }
-  .section-title { @apply font-display text-[clamp(2.75rem,5.2vw,5.8rem)] font-medium leading-[0.98] tracking-[-0.045em]; }
+  .section-title { @apply font-display text-[clamp(2.1rem,3.5vw,3.75rem)] font-medium leading-[1.02] tracking-[-0.035em]; }
   .feature-card { @apply rounded-xl border border-navy/8 bg-cream p-5 shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-terracotta/50 hover:shadow-lift sm:p-6; }
   .text-link { @apply inline-flex items-center gap-2 text-sm font-bold text-ocean underline decoration-terracotta/60 underline-offset-4 transition hover:text-navy; }
-  .hero-title { font-size: clamp(2.55rem, 10.8vw, 3.7rem); }
+  .hero-title { font-size: clamp(2.1rem, 9vw, 3.2rem); }
   .hero-image-frame { border-radius: 44px 14px 44px 14px; }
   .skip-link { @apply fixed left-4 top-[-80px] z-[100] rounded-full bg-navy px-5 py-3 text-sm font-bold text-cream transition-all focus:top-4; }
 }
@@ -48,7 +48,7 @@
 
 @media (min-width: 1024px) {
   .page-shell { width: min(1440px, calc(100% - 5rem)); }
-  .hero-title { font-size: clamp(3.2rem, 4.45vw, 4.7rem); }
+  .hero-title { font-size: clamp(2.8rem, 3.65vw, 3.9rem); }
 }
 
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity 650ms ease, transform 650ms ease; }
