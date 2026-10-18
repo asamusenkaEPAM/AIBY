@@ -5,7 +5,8 @@ export default function AboutSection({ copy }) {
     <section id="about" className="bg-peach py-16 lg:py-20">
       <div className="page-shell grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
         <div className="reveal">
-          <h2 className="eyebrow">{copy.about.label}</h2>
+          <p className="eyebrow">{copy.about.label}</p>
+          <h2 className="section-title mt-6 max-w-xl">{copy.about.title}</h2>
         </div>
         <div className="reveal" style={{ transitionDelay: '100ms' }}>
           <p className="text-xl leading-[1.75] text-navy/72">{copy.about.text}</p>
