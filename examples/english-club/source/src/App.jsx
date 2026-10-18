@@ -8,9 +8,16 @@ import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
 import TopicsSection from './components/TopicsSection';
 import useAnnouncement from './hooks/useAnnouncement';
+import { currentLocale, getCopy } from './i18n';
 
 export default function App() {
+  const locale = currentLocale();
+  const copy = getCopy(locale);
   const announcementState = useAnnouncement();
+
+  useEffect(() => {
+    document.documentElement.lang = copy.htmlLang;
+  }, [copy.htmlLang]);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -35,17 +42,17 @@ export default function App() {
 
   return (
     <div className="overflow-x-clip bg-ivory text-navy">
-      <a href="#main-content" className="skip-link">Skip to content</a>
-      <Header />
+      <a href="#main-content" className="skip-link">{copy.skip}</a>
+      <Header copy={copy} locale={locale} />
       <main id="main-content">
-        <Hero {...announcementState} />
-        <FeatureGrid />
-        <AboutSection />
-        <EventsSection {...announcementState} />
-        <TopicsSection />
-        <HowItWorks />
+        <Hero {...announcementState} copy={copy} />
+        <FeatureGrid copy={copy} />
+        <AboutSection copy={copy} />
+        <EventsSection {...announcementState} copy={copy} />
+        <TopicsSection copy={copy} />
+        <HowItWorks copy={copy} />
       </main>
-      <Footer />
+      <Footer copy={copy} />
     </div>
   );
 }

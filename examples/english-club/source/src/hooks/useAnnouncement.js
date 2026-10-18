@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { assetHref } from '../i18n';
 
 export const telegramChannel = 'https://t.me/EnglishSpeakingClubBudva';
 
@@ -27,7 +28,7 @@ export default function useAnnouncement() {
   useEffect(() => {
     let active = true;
 
-    fetch('./data/latest-event.json', { cache: 'no-store' })
+    fetch(assetHref('data/latest-event.json'), { cache: 'no-store' })
       .then((response) => {
         if (!response.ok) throw new Error('Latest event is unavailable');
         return response.json();

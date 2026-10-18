@@ -18,7 +18,7 @@ function savedTopicIndex() {
   }
 }
 
-export default function TopicsSection() {
+export default function TopicsSection({ copy }) {
   const [currentIndex, setCurrentIndex] = useState(savedTopicIndex);
   const [direction, setDirection] = useState('next');
   const [dragOffset, setDragOffset] = useState(0);
@@ -186,7 +186,7 @@ export default function TopicsSection() {
                 className="grid size-11 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 transition hover:bg-white/15"
                 type="button"
                 onClick={closeFullscreen}
-                aria-label="Close full-screen topic"
+                aria-label={copy.topics.closeFullscreen}
               >
                 <X className="size-5" aria-hidden="true" />
               </button>
@@ -196,7 +196,7 @@ export default function TopicsSection() {
                 className="grid size-10 shrink-0 place-items-center rounded-full border border-white/25 bg-white/10 transition hover:bg-white/15 md:hidden"
                 type="button"
                 onClick={openFullscreen}
-                aria-label="Open topic in full screen"
+                aria-label={copy.topics.fullscreen}
                 aria-haspopup="dialog"
               >
                 <Maximize2 className="size-4" aria-hidden="true" />
@@ -231,32 +231,32 @@ export default function TopicsSection() {
 
       {fullscreen ? (
         <div className="relative mt-6 flex items-center justify-center gap-3">
-          <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label="Previous conversation topic">
+          <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-5" aria-hidden="true" />
           </button>
           <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cream px-6 text-sm font-bold text-navy transition hover:-translate-y-0.5" type="button" onClick={surpriseMe}>
             <Shuffle className="size-4 text-terracotta" aria-hidden="true" />
-            Surprise me
+            {copy.topics.surprise}
           </button>
-          <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(1)} aria-label="Next conversation topic">
+          <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
             <ArrowRight className="size-5" aria-hidden="true" />
           </button>
         </div>
       ) : (
         <div className="relative mt-7 flex flex-wrap items-center gap-3">
-          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label="Previous conversation topic">
+          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-4" aria-hidden="true" />
-            Previous
+            {copy.topics.previous}
           </button>
           <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cream px-5 text-sm font-bold text-navy transition hover:-translate-y-0.5" type="button" onClick={surpriseMe}>
             <Shuffle className="size-4 text-terracotta" aria-hidden="true" />
-            Surprise me
+            {copy.topics.surprise}
           </button>
-          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(1)} aria-label="Next conversation topic">
-            Next
+          <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(1)} aria-label={copy.topics.next}>
+            {copy.topics.next}
             <ArrowRight className="size-4" aria-hidden="true" />
           </button>
-          <span className="ml-auto hidden text-xs font-medium text-cream/50 md:block">Use ← → keys or swipe</span>
+          <span className="ml-auto hidden text-xs font-medium text-cream/50 md:block">{copy.topics.hint}</span>
         </div>
       )}
     </article>
@@ -268,18 +268,18 @@ export default function TopicsSection() {
         <div className="page-shell">
           <div className="reveal grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:items-end">
             <div>
-              <p className="eyebrow">Conversation topics</p>
-              <h2 className="section-title mt-6 max-w-4xl">Pick a card. Start somewhere unexpected.</h2>
+              <p className="eyebrow">{copy.topics.label}</p>
+              <h2 className="section-title mt-6 max-w-4xl">{copy.topics.title}</h2>
             </div>
             <p className="max-w-xl text-lg leading-relaxed text-navy/65 lg:justify-self-end">
-              One hundred conversation starters for the table. Each card gives you a theme and three easy ways into the discussion.
+              {copy.topics.text}
             </p>
           </div>
 
           <div
             className="reveal mt-12 outline-none"
             role="group"
-            aria-label="Conversation topic deck"
+            aria-label={copy.topics.deck}
             aria-roledescription="carousel"
             aria-hidden={isFullscreen || undefined}
             inert={isFullscreen ? '' : undefined}
@@ -300,7 +300,7 @@ export default function TopicsSection() {
           className="fixed inset-0 z-[100] overflow-x-hidden overflow-y-auto bg-ocean"
           role="dialog"
           aria-modal="true"
-          aria-label="Full-screen conversation topic"
+          aria-label={copy.topics.dialog}
           onKeyDown={handleKeyDown}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
