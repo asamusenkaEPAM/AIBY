@@ -18,6 +18,7 @@ export default defineConfig({
         en: resolve(import.meta.dirname, 'source/en/index.html'),
         ru: resolve(import.meta.dirname, 'source/ru/index.html'),
         me: resolve(import.meta.dirname, 'source/me/index.html'),
+        tr: resolve(import.meta.dirname, 'source/tr/index.html'),
       },
       output: {
         entryFileNames: 'assets/app-[hash].js',

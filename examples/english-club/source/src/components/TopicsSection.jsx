@@ -172,7 +172,7 @@ export default function TopicsSection({ copy }) {
         aria-live="polite"
       >
         <div className="relative flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em]">
+          <span lang="en" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em]">
             <Sparkles className="size-3.5 text-terracotta" aria-hidden="true" />
             {topic.category}
           </span>
@@ -205,7 +205,7 @@ export default function TopicsSection({ copy }) {
           </div>
         </div>
 
-        <div className={`relative max-w-5xl ${fullscreen ? 'mt-8' : 'mt-10 sm:mt-14'}`}>
+        <div lang="en" className={`relative max-w-5xl ${fullscreen ? 'mt-8' : 'mt-10 sm:mt-14'}`}>
           <h3 className={`font-display font-medium leading-[1.02] tracking-[-0.035em] ${fullscreen ? 'text-[clamp(2rem,9vw,3.25rem)]' : 'text-[clamp(2rem,3.5vw,3.6rem)]'}`}>
             {topic.title}
           </h3>

@@ -1,4 +1,4 @@
-export const supportedLocales = ['en', 'ru', 'me'];
+export const supportedLocales = ['en', 'ru', 'me', 'tr'];
 
 const translations = {
   en: {
@@ -31,23 +31,37 @@ const translations = {
   },
   me: {
     code: 'ME', languageName: 'Crnogorski', htmlLang: 'sr-ME',
-    skip: 'Pređi na sadržaj',
+    skip: 'Pređite na sadržaj',
     nav: [['Početna', '#home'], ['O klubu', '#about'], ['Događaji', '#events'], ['Teme', '#topics'], ['Kontakt', '#contact']],
-    joinUs: 'Pridružite se', joinClub: 'Pridružite se klubu',
-    menuOpen: 'Otvori meni', menuClose: 'Zatvori meni', mainNav: 'Glavna navigacija', mobileNav: 'Mobilna navigacija', language: 'Jezik',
-    hero: { line1: 'Govorite engleski. Upoznajte ljude.', line2: 'Osjećajte se kao kod kuće u Budvi.', next: 'Sljedeće druženje', checking: 'Provjeravamo najnoviju objavu…', soon: 'Detalji novog druženja stižu uskoro', automatic: 'Vrijeme i mjesto će se ovdje pojaviti automatski.', check: 'Provjeri Telegram', openLocation: 'Otvori lokaciju' },
-    features: ['Prijateljska zajednica', 'Besplatno učešće', 'Susreti uživo', 'Svi nivoi su dobrodošli'], highlights: 'Prednosti kluba',
-    about: { label: 'O klubu', title: 'Veče u kojem engleski dolazi prirodno.', text: 'Mjesto u Budvi, Crna Gora, gdje lokalci, novi stanovnici i posjetioci dijele priče, postavljaju dobra pitanja i postaju sigurniji kroz svaki razgovor.', promises: ['Bez testova i formalnih časova', 'Možete prvo samo slušati', 'Drugačija ekipa svake sedmice'] },
-    events: { label: 'Najnovije iz kluba', checking: 'Provjeravamo Telegram', looking: 'Tražimo detalje sljedećeg druženja…', updates: 'Novosti sa Telegrama', soon: 'Detalji novog druženja stižu uskoro', soonText: 'Datum i mjesto će se pojaviti čim budu objavljeni na Telegramu.', live: 'Direktno sa Telegrama', next: 'Sljedeće veče razgovora', date: 'Datum i vrijeme', location: 'Lokacija', openLocation: 'Otvori lokaciju', view: 'Pogledaj na Telegramu', check: 'Provjeri Telegram' },
-    topics: { label: 'Teme za razgovor', title: 'Izaberite karticu. Počnite neočekivano.', text: 'Sto tema za razgovor za zajedničkim stolom. Svaka kartica donosi temu i tri jednostavna pitanja za početak.', deck: 'Kartice sa temama za razgovor', fullscreen: 'Otvori temu preko cijelog ekrana', closeFullscreen: 'Zatvori prikaz preko cijelog ekrana', previous: 'Prethodna', next: 'Sljedeća', surprise: 'Iznenadi me', hint: 'Koristite ← → ili prevucite', dialog: 'Tema za razgovor preko cijelog ekrana' },
-    how: { label: 'Kako funkcioniše', title: 'Tri mala koraka do mnogo većeg razgovora.', steps: [['Otvorite Telegram', 'Pronađite najnoviju objavu sa tačnom lokacijom i svim novostima.'], ['Dođite kakvi jeste', 'Nisu potrebni prijava, test ili savršeno predstavljanje.'], ['Počnite pozdravom', 'Slušajte, uključite se u temu i pustite da sljedeća rečenica dođe prirodno.']] },
-    footer: { text: 'Prijateljsko mjesto za vježbanje engleskog, upoznavanje ljudi i osjećaj doma u Budvi, Crna Gora.', tagline: 'Pravi ljudi · Pravi razgovori' },
+    joinUs: 'Pridružite nam se', joinClub: 'Pridružite se klubu',
+    menuOpen: 'Otvorite meni', menuClose: 'Zatvorite meni', mainNav: 'Glavna navigacija', mobileNav: 'Mobilna navigacija', language: 'Jezik',
+    hero: { line1: 'Vježbajte engleski. Upoznajte nove ljude.', line2: 'Pronađite svoju ekipu u Budvi.', next: 'Sljedeće druženje', checking: 'Provjeravamo najnoviju objavu…', soon: 'Uskoro objavljujemo sljedeće druženje', automatic: 'Čim dogovorimo vrijeme i mjesto, detalji će biti ovdje.', check: 'Otvorite Telegram', openLocation: 'Pogledajte na mapi' },
+    features: ['Opuštena atmosfera', 'Učešće je besplatno', 'Družimo se uživo', 'Za sve nivoe engleskog'], highlights: 'Prednosti kluba',
+    about: { label: 'O klubu', title: 'Razgovor na engleskom — bez časova i ocjenjivanja.', text: 'Okupljamo se u Budvi kako bi se lokalci, oni koji su se nedavno doselili i posjetioci upoznali, razmijenili priče i sigurnije govorili engleski.', promises: ['Bez testova i formalnih časova', 'Možete prvo samo slušati', 'Nova poznanstva svake sedmice'] },
+    events: { label: 'Novosti iz kluba', checking: 'Provjeravamo Telegram', looking: 'Tražimo informacije o sljedećem druženju…', updates: 'Novosti sa Telegrama', soon: 'Uskoro objavljujemo sljedeće druženje', soonText: 'Čim datum i mjesto objavimo na Telegramu, pojaviće se i ovdje.', live: 'Direktno sa Telegrama', next: 'Sljedeće druženje', date: 'Datum i vrijeme', location: 'Mjesto', openLocation: 'Pogledajte na mapi', view: 'Pogledajte na Telegramu', check: 'Otvorite Telegram' },
+    topics: { label: 'Teme za razgovor', title: 'Izaberite karticu i započnite neobičan razgovor.', text: 'Sto tema za razgovor za zajedničkim stolom. Svaka kartica donosi temu i tri jednostavna pitanja za početak.', deck: 'Kartice sa temama za razgovor', fullscreen: 'Otvorite temu preko cijelog ekrana', closeFullscreen: 'Zatvorite prikaz preko cijelog ekrana', previous: 'Prethodna', next: 'Sljedeća', surprise: 'Iznenadi me', hint: 'Listajte strelicama ili prevucite prstom', dialog: 'Tema za razgovor preko cijelog ekrana' },
+    how: { label: 'Kako funkcioniše', title: 'Tri jednostavna koraka do dobrog razgovora.', steps: [['Otvorite Telegram', 'Tamo je uvijek najnovija objava sa tačnim vremenom i adresom.'], ['Dođite bez pripreme', 'Ne morate se prijavljivati, raditi test niti unaprijed smišljati šta ćete reći.'], ['Počnite pozdravom', 'Saslušajte druge, uključite se u razgovor — dalje će ići samo od sebe.']] },
+    footer: { text: 'Klub u Budvi u kojem vježbamo engleski, upoznajemo ljude i pronalazimo svoju ekipu.', tagline: 'Upoznajemo se · Razgovaramo · Vježbamo engleski' },
+  },
+  tr: {
+    code: 'TR', languageName: 'Türkçe', htmlLang: 'tr',
+    skip: 'İçeriğe geç',
+    nav: [['Ana sayfa', '#home'], ['Hakkımızda', '#about'], ['Buluşmalar', '#events'], ['Konular', '#topics'], ['İletişim', '#contact']],
+    joinUs: 'Aramıza katıl', joinClub: 'Kulübe katıl',
+    menuOpen: 'Menüyü aç', menuClose: 'Menüyü kapat', mainNav: 'Ana menü', mobileNav: 'Mobil menü', language: 'Dil',
+    hero: { line1: 'İngilizce konuşun. Yeni insanlarla tanışın.', line2: "Budva'da kendi çevrenizi kurun.", next: 'Sıradaki buluşma', checking: 'Son duyuruyu kontrol ediyoruz…', soon: 'Yeni buluşmayı yakında duyuracağız', automatic: 'Saat ve mekân belli olduğunda ayrıntıları burada bulabilirsiniz.', check: "Telegram'ı aç", openLocation: 'Haritada göster' },
+    features: ['Samimi bir ortam', 'Katılım ücretsiz', 'Yüz yüze buluşmalar', 'Her seviyeye uygun'], highlights: 'Kulübün öne çıkanları',
+    about: { label: 'Kulüp hakkında', title: 'Ders yok, not yok — sadece İngilizce sohbet.', text: "Budva'da yaşayanların, şehre yeni gelenlerin ve gezginlerin tanıştığı; hikâyelerini paylaştığı ve konuşarak İngilizce özgüvenini geliştirdiği bir topluluğuz.", promises: ['Sınav ve resmi ders yok', 'İsterseniz önce sadece dinleyebilirsiniz', 'Her hafta yeni insanlarla tanışma fırsatı'] },
+    events: { label: 'Kulüpten haberler', checking: 'Telegram kontrol ediliyor', looking: 'Sıradaki buluşmanın ayrıntılarını arıyoruz…', updates: "Telegram'dan güncellemeler", soon: 'Yeni buluşmayı yakında duyuracağız', soonText: "Tarih ve mekânı Telegram'da paylaşır paylaşmaz burada da görebilirsiniz.", live: "Telegram'dan", next: 'Sıradaki buluşma', date: 'Tarih ve saat', location: 'Mekân', openLocation: 'Haritada göster', view: "Telegram'da görüntüle", check: "Telegram'ı aç" },
+    topics: { label: 'Sohbet konuları', title: 'Bir kart seçin. Sohbeti beklenmedik bir yerden başlatın.', text: 'Aynı masa etrafında yüz farklı sohbet konusu. Her kartta bir ana konu ve sohbeti başlatacak üç soru var.', deck: 'Sohbet konusu kartları', fullscreen: 'Konuyu tam ekranda aç', closeFullscreen: 'Tam ekran görünümünü kapat', previous: 'Önceki', next: 'Sonraki', surprise: 'Rastgele konu', hint: 'Ok tuşlarını kullanın veya kaydırın', dialog: 'Tam ekran sohbet konusu' },
+    how: { label: 'Nasıl işliyor?', title: 'İyi bir sohbet için üç basit adım.', steps: [["Telegram'ı açın", 'Güncel duyuruda saat, adres ve olası değişiklikleri bulabilirsiniz.'], ['Hazırlık yapmadan gelin', 'Kayıt olmanız, sınava girmeniz veya ne söyleyeceğinizi önceden düşünmeniz gerekmez.'], ['Bir merhabayla başlayın', 'Önce dinleyin, sohbete katılın — gerisi kendiliğinden gelir.']] },
+    footer: { text: "Budva'da İngilizce pratik yaptığımız, yeni insanlarla tanıştığımız ve kendi çevremizi kurduğumuz bir sohbet kulübü.", tagline: 'Tanışıyoruz · Konuşuyoruz · İngilizce pratik yapıyoruz' },
   },
 };
 
 export function currentLocale() {
   if (typeof window === 'undefined') return 'en';
-  const match = window.location.pathname.match(/\/(en|ru|me)\/?$/);
+  const match = window.location.pathname.match(/\/(en|ru|me|tr)\/?$/);
   return match?.[1] || 'en';
 }
 
@@ -56,7 +70,7 @@ export function siteRootPath() {
   const directory = window.location.pathname.endsWith('/')
     ? window.location.pathname
     : window.location.pathname.replace(/[^/]*$/, '');
-  return directory.replace(/(?:en|ru|me)\/$/, '');
+  return directory.replace(/(?:en|ru|me|tr)\/$/, '');
 }
 
 export function localeHref(locale) {

@@ -11,7 +11,7 @@ try {
   // The language links still work when storage is disabled.
 }
 
-const hasExplicitLocale = /\/(en|ru|me)\/?$/.test(window.location.pathname);
+const hasExplicitLocale = /\/(en|ru|me|tr)\/?$/.test(window.location.pathname);
 if (!hasExplicitLocale && supportedLocales.includes(preferredLocale) && preferredLocale !== 'en') {
   window.location.replace(localeHref(preferredLocale));
 } else {
