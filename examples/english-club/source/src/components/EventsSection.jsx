@@ -9,10 +9,9 @@ export default function EventsSection({ announcement }) {
     <section id="events" className="page-shell py-24 lg:py-32">
       <div className="reveal max-w-4xl">
         <p className="eyebrow">Latest club update</p>
-        <h2 className="section-title mt-6">The latest details, straight from the club.</h2>
       </div>
 
-      <article className="reveal mt-12 overflow-hidden rounded-[32px] bg-ocean p-7 text-cream shadow-soft sm:p-10 lg:p-12">
+      <article className="reveal mt-8 overflow-hidden rounded-[32px] bg-ocean p-7 text-cream shadow-soft sm:p-10 lg:p-12">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
           <div>
             <div className="flex items-start justify-between gap-5"><span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em]"><span className="size-2 rounded-full bg-terracotta" aria-hidden="true" />Live from Telegram</span><CalendarDays className="size-7 text-terracotta" strokeWidth={1.5} aria-hidden="true" /></div>
