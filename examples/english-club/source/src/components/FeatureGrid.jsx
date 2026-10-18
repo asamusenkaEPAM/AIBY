@@ -1,8 +1,8 @@
-import { CalendarDays, MessagesSquare, TrendingUp, UsersRound } from 'lucide-react';
+import { BadgeDollarSign, CalendarDays, TrendingUp, UsersRound } from 'lucide-react';
 
 const features = [
   [UsersRound, 'Friendly Community'],
-  [MessagesSquare, 'Interesting Topics'],
+  [BadgeDollarSign, 'Free to Join'],
   [CalendarDays, 'In-Person Meetups'],
   [TrendingUp, 'All Levels Welcome'],
 ];
