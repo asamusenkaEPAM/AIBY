@@ -59,9 +59,7 @@ export default function Header({ copy, locale }) {
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label={copy.mainNav}>
-          {copy.nav.map(([label, href]) => (
-            <a key={href} href={href} className="nav-link">{label}</a>
-          ))}
+          <a href="#topics" className="nav-link">{copy.topics.label}</a>
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
