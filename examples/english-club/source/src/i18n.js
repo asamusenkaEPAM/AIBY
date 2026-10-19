@@ -1,4 +1,4 @@
-export const supportedLocales = ['en', 'ru', 'me', 'tr'];
+export const supportedLocales = ['en', 'ru', 'me', 'tr', 'de'];
 
 const translations = {
   en: {
@@ -53,11 +53,24 @@ const translations = {
     how: { label: 'Nasıl işliyor?', title: 'İyi bir sohbet için üç basit adım.', steps: [["Telegram'ı açın", 'Güncel duyuruda saat, adres ve olası değişiklikleri bulabilirsiniz.'], ['Hazırlık yapmadan gelin', 'Kayıt olmanız, sınava girmeniz veya ne söyleyeceğinizi önceden düşünmeniz gerekmez.'], ['Bir merhabayla başlayın', 'Önce dinleyin, sohbete katılın — gerisi kendiliğinden gelir.']] },
     footer: { text: "Budva'da İngilizce pratik yaptığımız, yeni insanlarla tanıştığımız ve kendi çevremizi kurduğumuz bir sohbet kulübü.", tagline: 'Tanışıyoruz · Konuşuyoruz · İngilizce pratik yapıyoruz' },
   },
+  de: {
+    code: 'DE', languageName: 'Deutsch', htmlLang: 'de',
+    skip: 'Zum Inhalt springen',
+    nav: [['Startseite', '#home'], ['Über den Club', '#about'], ['Treffen', '#events'], ['Themen', '#topics'], ['Kontakt', '#contact']],
+    joinUs: 'Mitmachen', joinClub: 'Zum Club',
+    menuOpen: 'Menü öffnen', menuClose: 'Menü schließen', mainNav: 'Hauptnavigation', mobileNav: 'Mobile Navigation', language: 'Sprache',
+    hero: { line1: 'Englisch sprechen. Leute kennenlernen.', line2: 'In Budva Anschluss finden.', next: 'Nächstes Treffen', checking: 'Aktuelle Ankündigung wird geladen…', soon: 'Details zum nächsten Treffen folgen bald', automatic: 'Sobald Zeit und Ort feststehen, findest du die Details hier.', check: 'Telegram öffnen', openLocation: 'Auf der Karte öffnen' },
+    features: ['Offene Gemeinschaft', 'Kostenlose Teilnahme', 'Treffen vor Ort', 'Für alle Sprachniveaus'], highlights: 'Das erwartet dich',
+    about: { label: 'Über den Club', title: 'Englisch sprechen — ohne Unterricht und ohne Bewertung.', text: 'Wir treffen uns in Budva: Menschen aus der Region, Neuankömmlinge und Reisende lernen sich kennen, erzählen Geschichten und werden mit jedem Gespräch sicherer auf Englisch.', promises: ['Keine Tests und kein Unterricht', 'Erst zuhören ist völlig in Ordnung', 'Jede Woche neue Begegnungen'] },
+    topics: { label: 'Gesprächsthemen', usage: 'Öffne beim Treffen einfach eine Karte — das Thema und drei Fragen hast du direkt auf dem Handy.', title: 'Wähle eine Karte und lass dich überraschen.', text: 'Hundert Gesprächsimpulse für einen gemeinsamen Tisch. Jede Karte enthält ein Thema und drei Fragen für einen leichten Einstieg.', deck: 'Karten mit Gesprächsthemen', chooseCategory: 'Kategorie auswählen', allCategories: 'Alle Themen', fullscreen: 'Thema im Vollbild öffnen', closeFullscreen: 'Vollbild schließen', previous: 'Zurück', next: 'Weiter', surprise: 'Zufälliges Thema', hint: 'Mit den Pfeiltasten oder per Wischgeste blättern', dialog: 'Gesprächsthema im Vollbild' },
+    how: { label: 'So funktioniert es', title: 'Drei einfache Schritte zu einem guten Gespräch.', steps: [['Telegram öffnen', 'Dort findest du die aktuelle Ankündigung mit Uhrzeit, Adresse und möglichen Änderungen.'], ['Einfach vorbeikommen', 'Keine Anmeldung, kein Test, keine Vorbereitung — komm einfach vorbei.'], ['Mit einem Hallo anfangen', 'Hör erst einmal zu, steig ins Gespräch ein — der Rest ergibt sich von selbst.']] },
+    footer: { text: 'Ein Gesprächsclub in Budva, in dem wir Englisch üben, neue Leute kennenlernen und Anschluss finden.', tagline: 'Kennenlernen · Austauschen · Englisch sprechen' },
+  },
 };
 
 export function currentLocale() {
   if (typeof window === 'undefined') return 'en';
-  const match = window.location.pathname.match(/\/(en|ru|me|tr)\/?$/);
+  const match = window.location.pathname.match(/\/(en|ru|me|tr|de)\/?$/);
   return match?.[1] || 'en';
 }
 
@@ -66,7 +79,7 @@ export function siteRootPath() {
   const directory = window.location.pathname.endsWith('/')
     ? window.location.pathname
     : window.location.pathname.replace(/[^/]*$/, '');
-  return directory.replace(/(?:en|ru|me|tr)\/$/, '');
+  return directory.replace(/(?:en|ru|me|tr|de)\/$/, '');
 }
 
 export function localeHref(locale) {
