@@ -294,7 +294,7 @@ export default function TopicsSection({ copy }) {
 
   return (
     <>
-      <section id="topics" className="bg-cream py-16 lg:py-20">
+      <section id="topics" tabIndex="-1" className="bg-cream py-16 focus:outline-none lg:py-20">
         <div className="page-shell" aria-hidden={isFullscreen || undefined} inert={isFullscreen ? '' : undefined}>
           <h2 className="reveal eyebrow">{copy.topics.label}</h2>
           <p className="reveal mt-4 max-w-2xl text-base leading-relaxed text-navy/65 sm:text-lg">{copy.topics.usage}</p>

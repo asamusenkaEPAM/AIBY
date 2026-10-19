@@ -4,7 +4,6 @@ import { getCopy, localeHref, supportedLocales } from '../i18n';
 
 export default function Header({ copy, locale }) {
   const [open, setOpen] = useState(false);
-  const menuButton = useRef(null);
   const navigationTimer = useRef(null);
 
   useEffect(() => {
@@ -18,14 +17,33 @@ export default function Header({ copy, locale }) {
 
   const followMobileLink = (event, href) => {
     event.preventDefault();
-    setOpen(false);
-    menuButton.current?.focus({ preventScroll: true });
     window.clearTimeout(navigationTimer.current);
-    navigationTimer.current = window.setTimeout(() => {
+    const mobileNavigation = document.getElementById('mobile-navigation');
+    let completed = false;
+
+    const finishNavigation = () => {
+      if (completed) return;
+      completed = true;
+      window.clearTimeout(navigationTimer.current);
+      mobileNavigation?.removeEventListener('transitionend', handleTransitionEnd);
+
       const target = document.querySelector(href);
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!target) return;
+
+      const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+      const targetTop = window.scrollY + target.getBoundingClientRect().top - headerHeight - 16;
+      target.focus({ preventScroll: true });
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
       window.history.pushState(null, '', href);
-    }, 320);
+    };
+
+    const handleTransitionEnd = (transitionEvent) => {
+      if (transitionEvent.target === mobileNavigation) finishNavigation();
+    };
+
+    mobileNavigation?.addEventListener('transitionend', handleTransitionEnd);
+    setOpen(false);
+    navigationTimer.current = window.setTimeout(finishNavigation, 1200);
   };
 
   return (
@@ -54,7 +72,6 @@ export default function Header({ copy, locale }) {
         </div>
 
         <button
-          ref={menuButton}
           className="grid size-12 place-items-center rounded-full border border-navy/20 bg-cream lg:hidden"
           type="button"
           aria-label={open ? copy.menuClose : copy.menuOpen}
@@ -68,15 +85,16 @@ export default function Header({ copy, locale }) {
 
       <nav
         id="mobile-navigation"
-        className={`page-shell overflow-hidden transition-[max-height,opacity,padding] duration-300 lg:hidden ${open ? 'max-h-[430px] pb-6 opacity-100' : 'max-h-0 pb-0 opacity-0'}`}
+        className={`page-shell overflow-hidden transition-[max-height,opacity,padding] duration-300 lg:hidden ${open ? 'max-h-[300px] pb-6 opacity-100' : 'max-h-0 pb-0 opacity-0'}`}
         aria-label={copy.mobileNav}
         aria-hidden={!open}
         inert={open ? undefined : ''}
       >
         <div className="rounded-3xl border border-navy/10 bg-cream p-4 shadow-soft">
-          {copy.nav.map(([label, href]) => (
-            <a key={href} href={href} className="block rounded-2xl px-4 py-3.5 text-sm font-semibold hover:bg-peach" onClick={(event) => followMobileLink(event, href)}>{label}</a>
-          ))}
+          <a href="#topics" className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-peach px-4 py-3 text-sm font-bold transition hover:bg-terracotta/20" onClick={(event) => followMobileLink(event, '#topics')}>
+            <MessageCircle className="size-4 text-terracotta" aria-hidden="true" />
+            {copy.topics.label}
+          </a>
           <div className="my-3 flex items-center justify-center gap-2 border-y border-navy/10 py-3" aria-label={copy.language}>
             {supportedLocales.map((item) => <a key={item} href={localeHref(item)} lang={getCopy(item).htmlLang} aria-current={locale === item ? 'page' : undefined} onClick={() => window.localStorage.setItem('english-club-locale', item)} className={`rounded-full px-4 py-2 text-xs font-bold ${locale === item ? 'bg-navy text-cream' : 'bg-peach text-navy/65'}`}>{item.toUpperCase()}</a>)}
           </div>
