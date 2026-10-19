@@ -301,31 +301,22 @@ export default function TopicsSection({ copy }) {
           <h3 className={`font-display font-medium leading-[1.02] tracking-[-0.035em] ${fullscreen ? 'text-[clamp(2rem,9vw,3.25rem)]' : 'text-[clamp(2rem,3.5vw,3.6rem)]'}`}>
             {topic.title}
           </h3>
-          <ol className={`grid md:grid-cols-3 ${fullscreen ? 'mt-7 gap-2.5' : 'mt-10 gap-3'}`}>
-            {topic.prompts.map((prompt, index) => (
+          <ul className={`grid md:grid-cols-3 ${fullscreen ? 'mt-7 gap-4' : 'mt-10 gap-5 md:gap-8'}`}>
+            {topic.prompts.map((prompt) => (
               <li
                 key={prompt}
-                className={`flex gap-4 rounded-[22px] border border-white/15 bg-white/8 backdrop-blur-sm ${fullscreen ? 'min-h-0 p-4' : 'min-h-28 p-5 sm:p-6'}`}
+                className="flex items-start gap-3"
               >
-                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-terracotta text-xs font-bold text-navy">
-                  {index + 1}
-                </span>
-                <p className="pt-1 text-sm font-medium leading-relaxed text-cream/85 sm:text-base">{prompt}</p>
+                <span className="mt-[0.55em] size-2 shrink-0 rounded-full bg-terracotta" aria-hidden="true" />
+                <p className="text-base font-medium leading-relaxed text-cream/88 sm:text-lg">{prompt}</p>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
       </div>
 
-      <div className={`relative h-1.5 overflow-hidden rounded-full bg-white/10 ${fullscreen ? 'mt-6' : 'mt-8'}`} aria-hidden="true">
-        <div
-          className="h-full rounded-full bg-terracotta transition-[width] duration-500"
-          style={{ width: `${((currentPosition + 1) / availableIndices.length) * 100}%` }}
-        />
-      </div>
-
       {fullscreen ? (
-        <div className="relative mt-6 flex items-center justify-center gap-3">
+        <div className="relative mt-10 flex items-center justify-center gap-3">
           <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-5" aria-hidden="true" />
           </button>
@@ -338,7 +329,7 @@ export default function TopicsSection({ copy }) {
           </button>
         </div>
       ) : (
-        <div className="relative mt-7 flex flex-wrap items-center gap-3">
+        <div className="relative mt-10 flex flex-wrap items-center gap-3">
           <button className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/25 px-5 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-4" aria-hidden="true" />
             {copy.topics.previous}
