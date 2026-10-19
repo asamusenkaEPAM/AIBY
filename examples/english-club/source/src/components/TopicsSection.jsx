@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ArrowLeft, ArrowRight, ListFilter, Maximize2, Shuffle, Sparkles, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, ChevronDown, ListFilter, Maximize2, Shuffle, Sparkles, X } from 'lucide-react';
 import conversationTopics from '../data/conversationTopics';
 
 const STORAGE_KEY = 'english-club-topic-index';
@@ -26,7 +26,11 @@ export default function TopicsSection({ copy }) {
   const [isTouching, setIsTouching] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
   const touchStart = useRef(null);
+  const categoryMenu = useRef(null);
+  const categoryButton = useRef(null);
   const fullscreenButton = useRef(null);
   const closeButton = useRef(null);
   const pageScrollY = useRef(0);
@@ -37,6 +41,7 @@ export default function TopicsSection({ copy }) {
     .filter(({ item }) => !selectedCategory || item.category === selectedCategory)
     .map(({ index }) => index), [selectedCategory]);
   const currentPosition = Math.max(0, availableIndices.indexOf(currentIndex));
+  const categoryOptions = ['', ...topicCategories];
 
   useEffect(() => {
     try {
@@ -79,6 +84,27 @@ export default function TopicsSection({ copy }) {
     };
   }, [isFullscreen]);
 
+  useEffect(() => {
+    if (!isCategoryMenuOpen) return undefined;
+
+    const closeOnOutsideClick = (event) => {
+      if (!categoryMenu.current?.contains(event.target)) setIsCategoryMenuOpen(false);
+    };
+    const closeOnEscape = (event) => {
+      if (event.key !== 'Escape') return;
+      setIsCategoryMenuOpen(false);
+      categoryButton.current?.focus();
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    window.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideClick);
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [isCategoryMenuOpen]);
+
   const showTopic = (topicIndex, nextDirection) => {
     setDirection(nextDirection);
     setCurrentIndex(topicIndex);
@@ -101,8 +127,7 @@ export default function TopicsSection({ copy }) {
     showTopic(nextIndex, 'random');
   };
 
-  const chooseCategory = (event) => {
-    const category = event.target.value;
+  const chooseCategory = (category) => {
     const categoryIndices = conversationTopics
       .map((item, index) => ({ item, index }))
       .filter(({ item }) => !category || item.category === category)
@@ -110,7 +135,47 @@ export default function TopicsSection({ copy }) {
     const nextIndex = categoryIndices[Math.floor(Math.random() * categoryIndices.length)];
 
     setSelectedCategory(category);
+    setIsCategoryMenuOpen(false);
     showTopic(nextIndex, 'random');
+  };
+
+  const openCategoryMenu = (preferredIndex) => {
+    const selectedIndex = categoryOptions.indexOf(selectedCategory);
+    const nextIndex = Number.isInteger(preferredIndex)
+      ? preferredIndex
+      : Math.max(0, selectedIndex);
+
+    setActiveCategoryIndex(nextIndex);
+    setIsCategoryMenuOpen(true);
+    window.requestAnimationFrame(() => {
+      categoryMenu.current?.querySelector(`[data-category-index="${nextIndex}"]`)?.focus();
+    });
+  };
+
+  const handleCategoryButtonKeyDown = (event) => {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+    event.preventDefault();
+    const selectedIndex = Math.max(0, categoryOptions.indexOf(selectedCategory));
+    const offset = event.key === 'ArrowDown' ? 1 : -1;
+    openCategoryMenu((selectedIndex + offset + categoryOptions.length) % categoryOptions.length);
+  };
+
+  const handleCategoryOptionKeyDown = (event, index) => {
+    if (event.key === 'Tab') {
+      setIsCategoryMenuOpen(false);
+      return;
+    }
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp' && event.key !== 'Home' && event.key !== 'End') return;
+
+    event.preventDefault();
+    let nextIndex = index;
+    if (event.key === 'Home') nextIndex = 0;
+    if (event.key === 'End') nextIndex = categoryOptions.length - 1;
+    if (event.key === 'ArrowDown') nextIndex = (index + 1) % categoryOptions.length;
+    if (event.key === 'ArrowUp') nextIndex = (index - 1 + categoryOptions.length) % categoryOptions.length;
+
+    setActiveCategoryIndex(nextIndex);
+    categoryMenu.current?.querySelector(`[data-category-index="${nextIndex}"]`)?.focus();
   };
 
   const handleKeyDown = (event) => {
@@ -299,15 +364,59 @@ export default function TopicsSection({ copy }) {
           <h2 className="reveal eyebrow">{copy.topics.label}</h2>
           <p className="reveal mt-4 max-w-2xl text-base leading-relaxed text-navy/65 sm:text-lg">{copy.topics.usage}</p>
 
-          <div className="reveal mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <label className="inline-flex min-h-12 items-center gap-2 rounded-full border border-navy/15 bg-ivory px-4 text-sm font-bold text-navy shadow-soft">
-              <ListFilter className="size-4 text-terracotta" aria-hidden="true" />
-              <span className="sr-only">{copy.topics.chooseCategory}</span>
-              <select className="min-w-0 cursor-pointer bg-transparent pr-2 outline-none" value={selectedCategory} onChange={chooseCategory} aria-label={copy.topics.chooseCategory}>
-                <option value="">{copy.topics.allCategories}</option>
-                {topicCategories.map((category) => <option key={category} value={category} lang="en">{category}</option>)}
-              </select>
-            </label>
+          <div className={`relative mt-6 flex flex-col gap-3 sm:flex-row sm:items-center ${isCategoryMenuOpen ? 'z-40' : 'z-10'}`}>
+            <div ref={categoryMenu} className="relative w-full sm:w-80">
+              <button
+                ref={categoryButton}
+                className={`flex min-h-12 w-full items-center gap-3 rounded-full border bg-ivory px-4 text-left text-sm font-bold text-navy shadow-soft transition hover:border-terracotta/60 hover:bg-cream ${isCategoryMenuOpen ? 'border-terracotta ring-2 ring-terracotta/15' : 'border-navy/15'}`}
+                type="button"
+                aria-label={copy.topics.chooseCategory}
+                aria-haspopup="listbox"
+                aria-expanded={isCategoryMenuOpen}
+                onClick={() => (isCategoryMenuOpen ? setIsCategoryMenuOpen(false) : openCategoryMenu())}
+                onKeyDown={handleCategoryButtonKeyDown}
+              >
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-peach text-terracotta" aria-hidden="true">
+                  <ListFilter className="size-4" />
+                </span>
+                <span className="min-w-0 flex-1 truncate" lang={selectedCategory ? 'en' : undefined}>
+                  {selectedCategory || copy.topics.allCategories}
+                </span>
+                <ChevronDown className={`size-4 shrink-0 text-navy/55 transition-transform duration-200 ${isCategoryMenuOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
+              </button>
+
+              {isCategoryMenuOpen && (
+                <div
+                  className="absolute inset-x-0 top-full z-30 mt-2 max-h-80 overflow-y-auto rounded-[24px] border border-navy/10 bg-cream p-2 shadow-lift"
+                  role="listbox"
+                  aria-label={copy.topics.chooseCategory}
+                >
+                  {categoryOptions.map((category, index) => {
+                    const isSelected = category === selectedCategory;
+                    return (
+                      <button
+                        key={category || 'all'}
+                        className={`flex min-h-11 w-full items-center gap-3 rounded-2xl px-3.5 py-2.5 text-left text-sm font-semibold transition ${isSelected ? 'bg-ocean text-cream' : 'text-navy hover:bg-peach focus:bg-peach'}`}
+                        type="button"
+                        role="option"
+                        aria-selected={isSelected}
+                        tabIndex={index === activeCategoryIndex ? 0 : -1}
+                        data-category-index={index}
+                        lang={category ? 'en' : undefined}
+                        onFocus={() => setActiveCategoryIndex(index)}
+                        onKeyDown={(event) => handleCategoryOptionKeyDown(event, index)}
+                        onClick={() => chooseCategory(category)}
+                      >
+                        <span className={`grid size-6 shrink-0 place-items-center rounded-full ${isSelected ? 'bg-white/15' : 'bg-peach'}`} aria-hidden="true">
+                          {isSelected && <Check className="size-3.5" />}
+                        </span>
+                        <span className="min-w-0 flex-1">{category || copy.topics.allCategories}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
 
           <div
