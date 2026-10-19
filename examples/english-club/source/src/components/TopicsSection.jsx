@@ -316,7 +316,7 @@ export default function TopicsSection({ copy }) {
       </div>
 
       {fullscreen ? (
-        <div className="relative mt-10 flex items-center justify-center gap-3">
+        <div className="topic-fullscreen-controls flex items-center justify-center gap-3">
           <button className="grid size-12 place-items-center rounded-full border border-white/25 transition hover:bg-white/10" type="button" onClick={() => move(-1)} aria-label={copy.topics.previous}>
             <ArrowLeft className="size-5" aria-hidden="true" />
           </button>

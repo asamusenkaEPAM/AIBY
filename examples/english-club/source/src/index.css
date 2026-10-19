@@ -109,7 +109,16 @@
 
 .topic-fullscreen {
   min-height: 100dvh;
-  padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+  padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem calc(8rem + env(safe-area-inset-bottom));
+}
+
+.topic-fullscreen-controls {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 30;
+  padding: 2rem 1.25rem max(1.25rem, env(safe-area-inset-bottom));
+  background: linear-gradient(to top, var(--color-ocean) 68%, rgba(56, 87, 117, 0));
 }
 
 .topic-card-content-next { animation: topic-from-right 220ms ease-out; }
