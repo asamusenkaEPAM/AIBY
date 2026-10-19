@@ -1,7 +1,7 @@
 export default function HowItWorks({ copy }) {
   return (
     <section className="page-shell py-24 lg:py-32">
-      <div className="reveal text-center"><p className="eyebrow justify-center">{copy.how.label}</p><h2 className="section-title mx-auto mt-6 max-w-3xl">{copy.how.title}</h2></div>
+      <div className="reveal"><p className="eyebrow">{copy.how.label}</p><h2 className="section-title mt-6 max-w-3xl">{copy.how.title}</h2></div>
       <div className="relative mt-14 grid gap-5 md:grid-cols-3">
         <div className="absolute left-[16%] right-[16%] top-7 hidden border-t border-dashed border-navy/20 md:block" aria-hidden="true" />
         {copy.how.steps.map(([title, description], index) => {
