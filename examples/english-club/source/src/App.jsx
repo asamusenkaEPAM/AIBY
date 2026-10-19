@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import AboutSection from './components/AboutSection';
-import EventsSection from './components/EventsSection';
 import FeatureGrid from './components/FeatureGrid';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -48,7 +47,6 @@ export default function App() {
         <Hero {...announcementState} copy={copy} />
         <FeatureGrid copy={copy} />
         <TopicsSection copy={copy} />
-        <EventsSection {...announcementState} copy={copy} />
         <HowItWorks copy={copy} />
         <AboutSection copy={copy} />
       </main>

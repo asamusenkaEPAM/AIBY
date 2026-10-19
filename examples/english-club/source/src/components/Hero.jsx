@@ -41,7 +41,7 @@ export default function Hero({ announcement, isUpcoming, loading, copy }) {
             fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-navy/35 via-transparent to-transparent" aria-hidden="true" />
-          <aside className="hero-event-card absolute inset-x-4 bottom-4 z-10 rounded-[26px] border border-white/20 bg-navy/90 p-5 text-cream shadow-2xl backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-6 lg:left-auto lg:w-[430px]" aria-label="Next Budva English Conversation Club meetup">
+          <aside id="events" className="hero-event-card absolute inset-x-4 bottom-4 z-10 scroll-mt-28 rounded-[26px] border border-white/20 bg-navy/90 p-5 text-cream shadow-2xl backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-6 lg:left-auto lg:w-[430px]" aria-label="Next Budva English Conversation Club meetup">
             <div className="hero-event-step flex items-center justify-between gap-4">
               <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-cream/80">
                 <span className="size-2 rounded-full bg-terracotta" aria-hidden="true" />
