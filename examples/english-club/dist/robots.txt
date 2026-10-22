@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://asamusenkaepam.github.io/AIBY/examples/english-club/dist/sitemap.xml
