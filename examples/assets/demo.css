@@ -146,16 +146,16 @@ img, svg { display: block; max-width: 100%; }
 /* Examples catalog */
 .examples-page { --bg:#f2f4ee; --ink:#152019; --accent:#375e45; }
 .examples-hero { padding-block: 84px 60px; }
-.examples-hero h1 { max-width: 980px; margin: 0; font-family: Manrope,sans-serif; font-size: clamp(52px,8vw,100px); line-height:.94; letter-spacing:-.075em; }
+.examples-hero h1 { max-width: 900px; margin: 0; font-family: Manrope,sans-serif; font-size: clamp(40px,5.4vw,68px); line-height:.98; letter-spacing:-.065em; }
 .examples-hero p:last-child { max-width: 660px; margin: 30px 0 0; color: var(--muted); font-size:18px; line-height:1.7; }
-.examples-grid { padding: 30px 0 110px; display:grid; grid-template-columns:repeat(2,1fr); gap:18px; counter-reset:demos; }
-.demo-card { min-height:330px; padding:30px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; position:relative; color:#fff; background:#222; border-radius:24px; text-decoration:none; }
+.examples-grid { padding: 30px 0 110px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; counter-reset:demos; }
+.demo-card { min-height:300px; padding:26px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; position:relative; color:#fff; background:#222; border-radius:24px; text-decoration:none; }
 .demo-card::before { counter-increment:demos; content:'0' counter(demos); position:absolute; right:22px; top:12px; color:rgba(255,255,255,.14); font:800 90px Manrope,sans-serif; letter-spacing:-.08em; }
 .demo-card { background-position:center; background-size:cover; }
 .demo-card[href="cv/"]{background-image:linear-gradient(0deg,rgba(20,20,24,.88),rgba(20,20,24,.08)),url('images/cv-hero.webp')}.demo-card[href="handmade/"]{background-image:linear-gradient(0deg,rgba(70,38,27,.92),rgba(70,38,27,.08)),url('images/handmade-hero.webp')}.demo-card[href="car-wash/"]{background-image:linear-gradient(0deg,rgba(1,31,45,.92),rgba(1,31,45,.08)),url('images/car-wash-hero.webp')}.demo-card[href="plumber/"]{background-image:linear-gradient(0deg,rgba(31,39,42,.9),rgba(31,39,42,.05)),url('images/plumber-hero.webp')}.demo-card[href="flower-shop/"]{background-image:linear-gradient(0deg,rgba(73,26,44,.92),rgba(73,26,44,.08)),url('images/flowers-hero.webp')}.demo-card[href="computer-repair/"]{background-image:linear-gradient(0deg,rgba(10,13,11,.94),rgba(10,13,11,.08)),url('images/repair-hero.webp')}.demo-card[href="bike-rental/"]{background-image:linear-gradient(0deg,rgba(24,60,43,.92),rgba(24,60,43,.02)),url('images/bike-hero.webp')}.demo-card[href="pet-sitter/"]{background-image:linear-gradient(0deg,rgba(78,45,34,.9),rgba(78,45,34,.02)),url('images/pet-hero.webp')}
 .demo-card[href="english-club/"]{background-image:linear-gradient(0deg,rgba(10,48,59,.94),rgba(10,48,59,.05)),radial-gradient(circle at 78% 22%,#ffd05b 0 8%,transparent 8.5%),radial-gradient(circle at 66% 18%,#e85e46 0 23%,transparent 23.5%),linear-gradient(145deg,#2a788b,#123e4b)}
 .demo-card .tag { position:relative; z-index:1; width:max-content; padding:7px 10px; border:1px solid rgba(255,255,255,.25); border-radius:99px; font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
-.demo-card h2 { position:relative; z-index:1; margin:0 0 9px; font:800 clamp(30px,4vw,48px)/1 Manrope,sans-serif; letter-spacing:-.05em; }
+.demo-card h2 { position:relative; z-index:1; margin:0 0 9px; font:800 clamp(26px,2.7vw,38px)/1 Manrope,sans-serif; letter-spacing:-.05em; }
 .demo-card p { position:relative; z-index:1; max-width:480px; margin:0; color:rgba(255,255,255,.68); line-height:1.55; }
 .demo-card .open { position:relative; z-index:1; margin-top:24px; display:flex; justify-content:space-between; padding-top:16px; border-top:1px solid rgba(255,255,255,.2); font-weight:700; }
 
@@ -171,6 +171,7 @@ img, svg { display: block; max-width: 100%; }
   .trust-item:nth-child(2) { border-right:0; }
   .trust-item:nth-child(-n+2) { border-bottom:1px solid var(--line); }
   .cta-block { grid-template-columns: 1fr; padding: 52px; }
+  .examples-grid { grid-template-columns:repeat(2,1fr); }
 }
 
 @media (max-width: 640px) {
