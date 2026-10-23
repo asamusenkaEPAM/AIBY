@@ -1,0 +1,38 @@
+.article-signal { background:#3d1d6b; box-shadow:22px 22px 0 #ffb2e2; }
+.article-signal .signal-stat strong { color:#ffb2e2; }
+.article-catalog-card { background:#3d1d6b; }
+.article-prompt-card { background:#ffb2e2; }
+
+.prompt-page { background:#f7f8fa; }
+.prompt-shell { padding-block:72px 100px; }
+.prompt-head { max-width:920px; }
+.prompt-head h1 { margin:20px 0 24px; color:var(--navy); font-size:clamp(46px,6vw,72px); line-height:1.02; letter-spacing:-.058em; }
+.prompt-head h1 span { color:#6a2ca0; }
+.prompt-head > p:last-child { max-width:680px; margin:0; color:var(--muted); font-size:18px; line-height:1.7; }
+.prompt-panel { margin-top:52px; overflow:hidden; color:#eef1f7; background:var(--navy); border-radius:4px 28px 4px 4px; box-shadow:18px 18px 0 #ffb2e2; }
+.prompt-toolbar { min-height:82px; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid rgba(255,255,255,.14); }
+.prompt-toolbar > div { display:grid; gap:5px; }
+.prompt-toolbar span { color:#8fa0b9; font:500 11px Roboto Mono,monospace; letter-spacing:.08em; }
+.prompt-toolbar strong { color:white; font-size:14px; }
+.copy-button { min-height:44px; padding:0 18px; color:var(--navy); background:#ffb2e2; border:0; border-radius:6px; font-weight:800; cursor:pointer; transition:transform .18s,background .18s; }
+.copy-button:hover { transform:translateY(-2px); background:#ffc8ea; }
+.copy-button:focus-visible { outline:3px solid white; outline-offset:3px; }
+#prompt-text { max-height:70vh; margin:0; padding:32px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; color:#d4dceb; background:transparent; font:400 14px/1.75 Roboto Mono,monospace; tab-size:2; }
+.copy-status { min-height:22px; margin:0; padding:0 32px 22px; color:#ffb2e2; font:600 12px Roboto Mono,monospace; }
+.prompt-bottom-nav { margin-top:48px; display:flex; justify-content:space-between; gap:24px; }
+.prompt-bottom-nav a { color:var(--navy); font-weight:800; text-decoration:none; }
+.prompt-bottom-nav a:hover { color:#6a2ca0; }
+
+@media(max-width:640px){
+  .article-hero { padding-top:52px; }
+  .article-signal { margin-right:14px; box-shadow:14px 14px 0 #ffb2e2; }
+  .prompt-shell { padding-block:52px 78px; }
+  .prompt-head h1 { font-size:42px; }
+  .prompt-head > p:last-child { font-size:16px; }
+  .prompt-panel { margin:38px 10px 0 0; box-shadow:10px 10px 0 #ffb2e2; }
+  .prompt-toolbar { align-items:flex-start; flex-direction:column; }
+  .copy-button { width:100%; }
+  #prompt-text { max-height:64vh; padding:22px 18px; font-size:12px; line-height:1.7; }
+  .copy-status { padding:0 18px 18px; }
+  .prompt-bottom-nav { align-items:flex-start; flex-direction:column; }
+}
